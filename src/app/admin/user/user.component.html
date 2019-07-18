@@ -1,0 +1,150 @@
+<div class="row" *ngIf="!showForm">
+    <div class="col-sm-12">
+        <!-- <div class="p-2 text-uppercase form-header-text" *ngIf="showForm">User Form</div> -->
+        <button type="button" class="btn btn-primary-custom border border-dark float-right" *ngIf="!showForm" (click)="openForm()" appAuthorize="CanManageAccounts">New User</button>
+    </div>
+</div>
+<hr *ngIf="!showForm">
+
+<div class="row">
+    <div class="col-sm-12 col-md-10 offset-md-1" *ngIf="showForm">
+        <form [formGroup]="userForm">
+            <div class="card">
+                <div class="card-body mx-md-4">
+                    <h5 class="card-title text-uppercase text-muted ml-md-n4">User Form</h5><br>
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Name
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <input type="text" class="form-control" formControlName="name" [class.invalid-input]="userForm.controls.name.dirty && userForm.controls.name.invalid">
+                            <div class="invalid-msg" *ngIf="userForm.controls.name.dirty && userForm.controls.name.errors">
+                                This field is required
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Email</label>
+                            <input type="email" class="form-control" formControlName="email">
+                            <div class="invalid-msg" *ngIf="userForm.controls.email.dirty && userForm.controls.email.errors">
+                                Email is invalid
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" formControlName="phoneNumber">
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Username
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <input type="text" class="form-control" formControlName="userName" [class.invalid-input]="userForm.controls.userName.dirty && userForm.controls.userName.invalid">
+                            <div class="invalid-msg" *ngIf="userForm.controls.userName.dirty && userForm.controls.userName.errors">
+                                <div *ngIf="userForm.controls.userName.errors.required">
+                                    This field is required
+                                </div>
+                                <div *ngIf="userForm.controls.userName.errors.minlength">
+                                    Username must be at least 6 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Password
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <input type="password" class="form-control" formControlName="password" [class.invalid-input]="userForm.controls.password.dirty && userForm.controls.password.invalid">
+                            <div class="invalid-msg" *ngIf="userForm.controls.password.dirty && userForm.controls.password.errors">
+                                <div *ngIf="userForm.controls.password.errors.required">
+                                    This field is required
+                                </div>
+                                <div *ngIf="userForm.controls.password.errors.minlength">
+                                    Password must be at least 6 characters long
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Password Confirmation
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <input type="password" class="form-control" formControlName="confirmPassword" [class.invalid-input]="userForm.controls.confirmPassword.dirty && userForm.controls.confirmPassword.invalid">
+                            <div class="invalid-msg">
+                                <div *ngIf="userForm.controls.confirmPassword.dirty && userForm.controls.confirmPassword.errors">
+                                    This field is required
+                                </div>
+                                <div *ngIf="userForm.controls.confirmPassword.dirty && userForm.hasError('passwordMismatch')">
+                                    Passwords don't match
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Role
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <select class="form-control" formControlName="roleId" [class.invalid-input]="userForm.controls.roleId.dirty && userForm.controls.roleId.invalid">
+                                <option value="">Select Role</option>
+                                <option *ngFor="let role of roles$ | async" [ngValue]="role.id">{{role.name}}</option>
+                            </select>
+                            <div class="invalid-msg" *ngIf="userForm.controls.roleId.dirty && userForm.controls.roleId.errors">
+                                This field is required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="button" class="btn btn-danger float-left" (click)="remove(userForm.controls.id.value)" *ngIf="userForm.controls.id.value">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                        <button type="submit" class="btn btn-primary-custom border border-dark float-right" [validate-form]="userForm" (valid)="save()">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                        <button type="button" class="btn btn-light border border-dark float-right" (click)="closeForm()">
+                            <i class="fa fa-close"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" *ngIf="!showForm && !loading">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="table-responsive-sm">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="table-index">#</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users$ | async; let i = index" class="pointer" (click)="selectRow(user)">
+                            <td class="table-index">{{i + 1}}.</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.userName}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.phoneNumber}}</td>
+                            <td>{{user.role.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+.header-content {
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.border {
+    border-color: #e6dcb8 !important;
+}
+
+.font-11 {
+    font-size: 10px!important;
+}
+
+.font-12 {
+    font-size: 11px!important;
+}
+
+.progress-height {
+    height: 10px;
+}
+
+.fixed-card-height {
+    height: 300px;
+    overflow: auto;
+}
+
+.min-card-height {
+    min-height: 300px;
+}
+
+.bg-pink {
+    background-color: #e91e63 !important;
+}
+
+.text-dark-golder-rod {
+    color: #bf9500 !important;
+}
+
+.centered {
+    text-align: center;
+}

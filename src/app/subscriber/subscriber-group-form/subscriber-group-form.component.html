@@ -1,0 +1,72 @@
+<!-- <div class="row">
+  <div class="col-sm-12">
+    <div class="p-2 text-uppercase form-header-text">Group Form</div>
+  </div>
+</div>
+<hr> -->
+
+<div class="row">
+  <div class="col-sm-12 col-md-10 offset-md-1">
+    <form [formGroup]="form">
+      <div class="card">
+        <div class="card-body mx-md-4">
+          <div class="form-row">
+            <h5 class="card-title text-uppercase text-muted ml-md-n4">Group Form</h5><br>
+            <div class="form-group col-sm-12">
+              <label>Name</label>
+              <input type="text" class="form-control" formControlName="name"
+                [class.is-invalid]="name.dirty && name.invalid">
+              <div class="invalid-feedback" *ngIf="name.dirty && name.invalid">
+                <div *ngIf="name.errors.required">
+                  This field is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-sm-12">
+              <label>Description</label>
+              <textarea class="form-control" rows="3" formControlName="notes"></textarea>
+              <div class="invalid-feedback" *ngIf="notes.dirty && notes.invalid">
+                <div *ngIf="notes.errors.required">
+                  This field is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-sm-12">
+              <label>Subscribers</label>
+              <ng-select [items]="subscribers$ | async" bindLabel="phoneNumber" bindValue="id"
+                placeholder="Select Subscribers" [clearable]="false" [multiple]="true" [hideSelected]="true"
+                formControlName="subscribers" [class.is-invalid]="subscribers.dirty && subscribers.invalid">
+                <ng-template ng-option-tmp let-item="item">
+                  <span>{{ item.name  + ' - ' + item.phoneNumber}}</span>
+                </ng-template>
+                <ng-template ng-label-tmp let-item="item">
+                  <div class="ng-value-wrapper default">
+                    <span class="ng-value-icon left" (click)="removeSubscriber(item)"
+                      *ngIf="item.disabled !== true">×</span>
+                    <span class="ng-value-label">{{ item.name  + ' - ' + item.phoneNumber}}</span>
+                  </div>
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary-custom border border-dark float-right" [validate-form]="form"
+              (valid)="save(form.value)">
+              <i class="fa fa-save"></i> Save
+            </button>
+            <button type="button" class="btn btn-light border border-dark float-right" (click)="closeForm()">
+              <i class="fa fa-close"></i> Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

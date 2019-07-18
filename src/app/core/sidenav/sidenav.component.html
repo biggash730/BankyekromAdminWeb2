@@ -1,0 +1,42 @@
+<div class="wrapper">
+    <nav class="sidebar" *ngIf="authenticated" #sidebar>
+        <div class="logo text-center mb-4">
+            <img class="img-fluid image" src="../assets/images/logo.png">
+            <div><small>{{version}}</small></div>
+        </div>
+        <ul class="nav flex-column flex-nowrap">
+            <li class="nav-item" *ngFor="let menu of menus" routerLinkActive="active" appAuthorize="{{menu.privilege}}">
+                <a class="nav-link" routerLink="{{menu.route}}">
+                    <i [ngClass]="menu.icon"></i> {{menu.label}}
+                </a>
+            </li>
+            <li class="nav-item pointer">
+                <div class="dropdown btn-group dropright">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle-o fa-lg"></i> {{username  | uppercase}}
+                            </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="nav-link" routerLink="profile/profile-form">
+                            Profile
+                        </a>
+                        <a class="nav-link" routerLink="profile/change-password">
+                            Change Password
+                        </a>
+                        <a class="nav-link" (click)="doLogout()">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="text-center mt-5">
+            <img src="../assets/images/icons.png" style="width: 150px; height: 55px;">
+        </div>
+    </nav>
+
+    <main class="main-content" #content>
+        <router-outlet></router-outlet>
+    </main>
+
+    <div class="overlay" #overlay></div>
+</div>

@@ -1,0 +1,104 @@
+<ng-container *ngIf="responses$ | async as response">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="p-2 text-uppercase h6 float-left">
+        {{response.info.area}} <i class="fa fa-chevron-right"></i>
+        {{response.info.campaign}} <i class="fa fa-chevron-right"></i>
+        {{response.info.tree}} <i class="fa fa-chevron-right"></i>
+        {{response.info.question}}
+      </div>
+      <button type="button" class="btn btn-light border border-dark float-right" (click)="results()">
+        <i class="fa fa-arrow-left"></i> Back
+      </button>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row mb-3">
+    <div class="col-sm-12 col-md-3">
+      <filter class="" placeholder="Search by name" label="name" [model]="name" (search)="getNodeResponses($event)"
+        [filter]="filter">
+        <div class="form-group">
+          <input type="text" class="form-control" name="phoneNumber" placeholder="Phone Number"
+            [(ngModel)]="filter.phoneNumber">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="code" placeholder="Code" [(ngModel)]="filter.code">
+        </div>
+        <div class="form-group">
+          <ng-select [items]="genders" placeholder="Select Gender" [clearable]="true" [(ngModel)]="filter.gender">
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <ng-select [items]="districts" bindLabel="district" bindValue="districtId" placeholder="Select District"
+            [clearable]="true" [(ngModel)]="filter.districtId">
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <ng-select [items]="responseFilter" placeholder="Select Response"
+            [clearable]="true" [(ngModel)]="filter.response">
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="callDate" placeholder="Call Date" onfocus="(this.type='date')"
+            onblur="(this.type='text')" [(ngModel)]="filter.callDate">
+        </div>
+      </filter>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="table-responsive-sm">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Subscriber Code</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>District</th>
+                <th>Gender</th>
+                <th>Response</th>
+                <th>Call Date</th>
+                <th>Call Duration (minutes)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let obj of response.list; let i = index">
+                <td>{{((currentPage - 1) * size) + i + 1}}.</td>
+                <td>{{obj.code}}</td>
+                <td>{{obj.name}}</td>
+                <td>{{obj.phoneNumber}}</td>
+                <td>{{obj.district}}</td>
+                <td>{{obj.gender}}</td>
+                <td>{{obj.response}}</td>
+                <td>{{obj.callDate | date:'mediumDate'}}</td>
+                <td>{{secondsToTime(obj.duration) | date:'mm:ss'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-3">
+      <div class="input-group mb-3 float-left">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Records per page</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="size"
+          (ngModelChange)="pageSizeChangeEvent()">
+          <option *ngFor="let size of pageSizes" [ngValue]="size">{{size}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <ngb-pagination class="float-right" [(page)]="currentPage" [pageSize]="size" [collectionSize]="totalRecords"
+        [maxSize]="5" (pageChange)="pageChanged($event)"></ngb-pagination>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-sm-12">
+        <filter class="float-left" placeholder="Search by title" label="title" [model]="title" (search)="getCampaigns($event)" [filter]="filter">
+            <div class="form-group">
+                <ng-select [items]="areas$ | async" bindLabel="name" bindValue="id" placeholder="Select Area" [clearable]="true" [(ngModel)]="filter.areaId">
+                </ng-select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="startDate" placeholder="Start Date" onfocus="(this.type='date')" onblur="(this.type='text')" [(ngModel)]="filter.startDate">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="endDate" placeholder="End Date" onfocus="(this.type='date')" onblur="(this.type='text')" [(ngModel)]="filter.endDate">
+            </div>
+        </filter>
+        <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageCampaigns">New Outbound
+      Campaign</button>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Campaign Area</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let campaign of campaigns$ | async; let i = index">
+                            <td>{{((currentPage - 1) * size) + i + 1}}.</td>
+                            <td>{{campaign.title}}</td>
+                            <td>{{campaign.area.name}}</td>
+                            <td>{{campaign.startDate | date:'mediumDate'}}</td>
+                            <td>{{campaign.endDate | date:'mediumDate'}}</td>
+                            <td>
+                                <a class="pointer mr-2" (click)="editForm(campaign.id)" title="Edit" *ngIf="!campaign.expired" appAuthorize="CanManageCampaigns"><i class="fa fa-edit"></i></a>
+                                <a class="pointer mr-2" (click)="gotoSchedule(campaign.id)" title="Schedule"><i class="fa fa-clock-o"  appAuthorize="CanViewSchedules"></i></a>
+                                <a class="pointer mr-2" (click)="results(campaign.id)" title="Results" appAuthorize="CanViewCampaignResults"><i class="fa fa-bar-chart"></i></a>
+                                <a class="pointer" (click)="delete(campaign.id)" title="Delete" *ngIf="!campaign.expired" appAuthorize="CanManageCampaigns"><i class="fa fa-trash text-danger"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-3">
+        <div class="input-group mb-3 float-left">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Records per page</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="size" (ngModelChange)="pageSizeChangeEvent()">
+        <option *ngFor="let size of pageSizes" [ngValue]="size">{{size}}</option>
+      </select>
+        </div>
+    </div>
+    <div class="col">
+        <ngb-pagination class="float-right" [(page)]="currentPage" [pageSize]="size" [collectionSize]="totalRecords" [maxSize]="5" (pageChange)="pageChanged($event)"></ngb-pagination>
+    </div>
+</div>

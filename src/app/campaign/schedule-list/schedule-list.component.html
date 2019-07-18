@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-sm-12">
+        <filter class="float-left" placeholder="Search by title" label="title" [model]="title" (search)="getCampaignSchedules($event)" [filter]="filter">
+            <div class="form-group">
+                <ng-select [items]="topics$ | async" bindLabel="name" bindValue="id" placeholder="Select Topic" [clearable]="true" [(ngModel)]="filter.topicId">
+                </ng-select>
+            </div>
+            <div class="form-group">
+                <ng-select [items]="recipientTypes" placeholder="Select Recipient Type" [clearable]="true" [(ngModel)]="filter.receipientType">
+                </ng-select>
+            </div>
+            <div class="form-group">
+                <ng-select [items]="scheduleTypes" placeholder="Select Schedule Type" [clearable]="true" [(ngModel)]="filter.scheduleType">
+                </ng-select>
+            </div>
+        </filter>
+        <a class="btn btn-light border border-dark float-right" routerLink="/campaign/outbound">
+            <i class="fa fa-arrow-left"></i> Back
+        </a>
+        <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageSchedules">New Campaign
+      Schedule</button>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <div class="alert alert-info" role="alert" *ngIf="campaign">
+            Campaign Schedules for Campaign: <b>{{campaign.title}}</b> in the area of <b>{{campaign.area.name}}</b>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Pillar</th>
+                            <th>Topic</th>
+                            <th>Tree</th>
+                            <th>Recipient Type</th>
+                            <th>Schedule Type</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let schedule of campaignSchedules$ | async; let i = index">
+                            <td>{{((currentPage - 1) * size) + i + 1}}.</td>
+                            <td>{{schedule.pillar.name}}</td>
+                            <td>{{schedule.topic.name}}</td>
+                            <td>{{schedule.tree.title}}</td>
+                            <td>{{schedule.recipientType}}</td>
+                            <td>{{schedule.scheduleType}}</td>
+                            <td>{{schedule.startDate | date:'mediumDate'}}</td>
+                            <td>{{schedule.endDate | date:'mediumDate'}}</td>
+                            <td>
+                                <a class="pointer" (click)="editForm(schedule.id)" title="Edit" *ngIf="!schedule.isSent" appAuthorize="CanManageSchedules"><i class="fa fa-edit"></i></a> &nbsp;
+                                <a class="pointer" (click)="delete(schedule.id)" title="Delete" *ngIf="!schedule.isSent" appAuthorize="CanManageSchedules"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-3">
+        <div class="input-group mb-3 float-left">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Records per page</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="size" (ngModelChange)="pageSizeChangeEvent()">
+        <option *ngFor="let size of pageSizes" [ngValue]="size">{{size}}</option>
+      </select>
+        </div>
+    </div>
+    <div class="col">
+        <ngb-pagination class="float-right" [(page)]="currentPage" [pageSize]="size" [collectionSize]="totalRecords" [maxSize]="5" (pageChange)="pageChanged($event)"></ngb-pagination>
+    </div>
+</div>

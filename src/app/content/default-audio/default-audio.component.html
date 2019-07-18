@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-sm-4">
+
+    </div>
+    <div class="col-sm-8">
+        <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageMedia">New Default Audio</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-4">
+    </div>
+
+</div>
+
+<div class="row" style="margin-top:10px;">
+    <div class="col">
+        <div class="card">
+            <div class="table-responsive-sm">
+                <table class="table  table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Code</th>
+                            <th>Title</th>
+                            <th>Language</th>
+                            <th>Length</th>
+                            <th>Date Uploaded</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let x of records$ | async; let i = index" scope="row">
+                            <td>{{((currentPage - 1) * size) + i + 1}}</td>
+                            <td>{{x.code}}</td>
+                            <td>{{x.title}}</td>
+                            <td>{{x.language}}</td>
+                            <td>{{x.length}}</td>
+                            <td>{{x.createdAt | date:'mediumDate'}}</td>
+                            <td>
+                                <button type="button" class="btn pointer" (click)="delete(x.id)" style="border: #e9ecef 1px solid;background-color: inherit;"><i class="fa fa-ban fa-lg"  style="color: #a50101;"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-3">
+        <div class="input-group mb-3 float-left">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Records per page</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="size" (ngModelChange)="pageSizeChangeEvent()">
+          <option *ngFor="let size of pageSizes" [ngValue]="size">{{size}}</option>
+        </select>
+        </div>
+    </div>
+    <div class="col">
+        <ngb-pagination class="float-right" [(page)]="currentPage" [pageSize]="size" [collectionSize]="totalRecords" [maxSize]="5" (pageChange)="pageChanged($event)"></ngb-pagination>
+    </div>
+</div>

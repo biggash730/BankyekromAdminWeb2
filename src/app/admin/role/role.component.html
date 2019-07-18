@@ -1,0 +1,72 @@
+<div class="row" *ngIf="!showForm">
+    <div class="col-sm-12">
+        <div class="p-2 text-uppercase form-header-text" *ngIf="showForm">Role Form</div>
+        <button type="button" class="btn btn-primary-custom border border-dark float-right" *ngIf="!showForm" (click)="openForm()" appAuthorize="CanManageAccounts"> Add
+            Role</button>
+    </div>
+</div>
+<hr *ngIf="!showForm">
+
+<!-- <div class="row"> -->
+<div *ngIf="showForm">
+    <form (ngSubmit)="save()">
+        <div class="row">
+            <div class="col-sm-12 col-md-10 offset-md-1">
+                <div class="card">
+                    <div class="card-body mx-md-4">
+                        <h5 class="card-title text-uppercase text-muted ml-md-n4">Role Form</h5><br>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" [(ngModel)]="role.name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Privileges</label>
+                            <ng-select name="privileges" multiple="true" [items]="privileges" [hideSelected]="true" placeholder="Select Privileges" [clearable]="false" [(ngModel)]="role.privileges">
+                            </ng-select>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea rows="3" class="form-control" name="notes" [(ngModel)]="role.notes"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary-custom border border-dark float-right">
+                                <i class="fa fa-save"></i> Save</button>
+                            <button type="button" class="btn btn-light border border-dark float-right" (click)="closeForm()">
+                                <i class="fa fa-close"></i> Cancel</button>
+                            <button type="button" class="btn btn-danger float-left" (click)="remove(role.id)" *ngIf="role.id">
+                                <i class="fa fa-trash"></i> Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- </div> -->
+
+<div class="row" *ngIf="!showForm">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="table-index">#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Privileges</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let role of roles$ | async; let i = index" class="pointer" (click)="selectRow(role)">
+                            <td class="table-index">{{i + 1}}.</td>
+                            <td>{{role.name}}</td>
+                            <td>{{role.notes}}</td>
+                            <td>{{role.privileges.split(',').length}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-sm-12 col-md-4 offset-md-4">
+        <form [formGroup]="form">
+            <div class="card">
+                <div class="card-body">
+                    <div class="p-3 text-uppercase form-header-text">{{formType}} Default Audio</div>
+                    <div class="form-row">
+                        <div class="form-group col-sm-12 col-md-12">
+                            <label>Title <i class="fa fa-asterisk color-maroon"></i></label>
+                            <input type="text" class="form-control" formControlName="title" [class.is-invalid]="title.dirty && title.invalid" placeholder="Live Test">
+                            <div class="invalid-feedback" *ngIf="title.dirty && title.invalid">
+                                <div *ngIf="title.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-12">
+                            <label>Media <i class="fa fa-asterisk color-maroon"></i></label>
+                            <select class="form-control" formControlName="mediaId" [class.is-invalid]="mediaId.dirty && mediaId.invalid" placeholder="Media">
+                <option *ngFor="let m of media$ | async" [ngValue]="m.id">{{m.title}}</option>
+              </select>
+                            <div class="invalid-feedback" *ngIf="mediaId.dirty && mediaId.invalid">
+                                <div *ngIf="mediaId.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row float-right">
+                        <button type="button" class="btn border border-dark" (click)="closeForm()">
+                                    <i class="fa fa-close"></i> Cancel
+                                  </button>
+                        <button type="submit" class="btn btn-primary-custom border border-dark" [validate-form]="form" (valid)="save(form.value)" [disabled]="form.invalid">
+                                    <i class="fa fa-upload"></i> Save Default Audio
+                                  </button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

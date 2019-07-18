@@ -1,0 +1,8 @@
+{
+    "/api": {
+        "targetxx": "http://bankyekrom.azurewebsites.net",
+        "target": "http://localhost:1501",
+        "secure": false,
+        "changeOrigin": true
+    }
+}

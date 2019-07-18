@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-sm-12 col-md-10 offset-md-1">
+        <form [formGroup]="userForm">
+            <div class="card">
+                <div class="card-body mx-md-4">
+                    <h5 class="card-title text-uppercase text-muted ml-md-n4">Reset Password Form</h5><br>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-12">
+                            <label>Username
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <input type="text" class="form-control" formControlName="userName" [class.invalid-input]="userForm.controls.userName.dirty && userForm.controls.userName.invalid">
+                            <div class="invalid-msg" *ngIf="userForm.controls.userName.dirty && userForm.controls.userName.errors">
+                                <div *ngIf="userForm.controls.userName.errors.required">
+                                    This field is required
+                                </div>
+                                <div *ngIf="userForm.controls.userName.errors.minlength">
+                                    Username must be at least 6 characters long
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Password
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <input type="password" class="form-control" formControlName="password" [class.invalid-input]="userForm.controls.password.dirty && userForm.controls.password.invalid">
+                            <div class="invalid-msg" *ngIf="userForm.controls.password.dirty && userForm.controls.password.errors">
+                                <div *ngIf="userForm.controls.password.errors.required">
+                                    This field is required
+                                </div>
+                                <div *ngIf="userForm.controls.password.errors.minlength">
+                                    Password must be at least 6 characters long
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Password Confirmation
+                                <i class="fa fa-asterisk text-danger"></i>
+                            </label>
+                            <input type="password" class="form-control" formControlName="confirmPassword" [class.invalid-input]="userForm.controls.confirmPassword.dirty && userForm.controls.confirmPassword.invalid">
+                            <div class="invalid-msg">
+                                <div *ngIf="userForm.controls.confirmPassword.dirty && userForm.controls.confirmPassword.errors">
+                                    This field is required
+                                </div>
+                                <div *ngIf="userForm.controls.confirmPassword.dirty && userForm.hasError('passwordMismatch')">
+                                    Passwords don't match
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary-custom border border-dark float-right" [validate-form]="userForm" (valid)="reset()" appAuthorize="CanManageAccounts">
+                            <i class="fa fa-refresh"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

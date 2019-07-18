@@ -1,0 +1,101 @@
+$sidebar-top-color: #ffcc00;
+$sidebar-text-color: #000;
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    position: fixed;
+    width: 180px;
+    height: 100%;
+    overflow: auto;
+    transition: all 0.3s;
+    z-index: 1000;
+    background-color: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+
+    .logo {
+        padding: 20px 10px;
+        background: linear-gradient(150deg, $sidebar-top-color, #cc9900);
+    }
+
+    .image {
+        width: 100px;
+    }
+
+    .nav {
+        a {
+            color: $sidebar-text-color;
+            font-size: 13px;
+            line-height: 50px;
+            text-transform: uppercase;
+        }
+
+        i {
+            margin-right: 20px;
+            color: $sidebar-text-color;
+        }
+    }
+
+    .active {
+        border-left: solid 5px #ffc800;
+        border-top-left-radius: 5px;
+        //border-bottom-left-radius: 5px;
+        background: linear-gradient(to right, #ecf7fb, #fff);
+    }
+}
+
+.sidebar.toggle {
+    margin-left: -180px;
+}
+
+.main-content {
+    position: relative;
+    // width: calc(100% - 250px);
+    width: 100%;
+    min-height: 92vh;
+    // right: 0;
+    margin-left: 180px;
+    overflow: hidden;
+    transition: all 0.3s;
+    //padding-top: 53px;
+}
+
+.main-content.toggle {
+    width: 100%;
+    margin-left: 0px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -180px;
+        z-index: 2000;
+    }
+
+    .sidebar.toggle {
+        margin-left: 0px;
+    }
+
+    .main-content {
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1998;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+    }
+    
+    .overlay.toggle {
+        display: block;
+        opacity: 0.5;
+    }
+}
