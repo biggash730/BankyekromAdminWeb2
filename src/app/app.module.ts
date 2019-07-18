@@ -16,24 +16,24 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { ProfileModule } from './profile/profile.module';
 import { AdminModule } from './admin/admin.module';
-import { SubscriberModule } from './subscriber/subscriber.module';
-import { ContentModule } from './content/content.module';
-import { CampaignModule } from './campaign/campaign.module';
 import { AppSettingsComponent } from './app-settings/app-settings.component';
 import { AppSettingsModule } from './app-settings/app-settings.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ReportModule } from './report/report.module';
+import { FarmerModule } from './farmer/farmer.module';
+
+import { SubscriberModule } from './subscriber/subscriber.module';
+import { ContentModule } from './content/content.module';
+import { CampaignModule } from './campaign/campaign.module';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoadingComponent,
-    // DashboardComponent,
-    // SettingsComponent,
     PageNotFoundComponent,
     LoginComponent,
-    // GeneralLookupComponent,
     AppSettingsComponent
   ],
   imports: [
@@ -45,6 +45,7 @@ import { ReportModule } from './report/report.module';
     SharedModule,
     AdminModule,
     ProfileModule,
+    FarmerModule,
     SubscriberModule,
     ContentModule,
     CampaignModule,

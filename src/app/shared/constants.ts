@@ -9,6 +9,31 @@ export class RouteNames {
     static roles = 'roles';
     static reset = 'reset';
 
+    static season = 'season';
+    static seasonList = 'seasons';
+    static seasonForm = 'seasons/form';
+    static seasonFormEdit = 'seasons/form/:id';
+    static seasonDetails = 'seasons/details';
+    static seasonDetailsId = 'seasons/details/:id';
+
+    static farmer = 'farmer';
+    static farmerList = 'farmers';
+    static farmerForm = 'farmers/form';
+    static farmerFormEdit = 'farmers/form/:id';
+    static farmerDetails = 'farmers/details';
+    static farmerDetailsId = 'farmers/details/:id';
+    static farmList = 'farms';
+    static farmForm = 'farms/form';
+    static farmFormEdit = 'farms/form/:id';
+    static farmDetails = 'farms/details';
+    static farmDetailsId = 'farms/details/:id';
+    static farmMap = 'farms/map';
+
+    static service = 'service';
+
+
+
+
     static subscriber = 'subscriber';
     static subscriberList = 'subscribers';
     static subscriberForm = 'subscribers/form';
@@ -74,8 +99,22 @@ export class RouteNames {
 export class Privileges {
     static CanViewDashboard = 'CanViewDashboard';
     static CanViewReports = 'CanViewReports';
+    static CanViewSettings = 'CanViewSettings';
     static CanManageSettings = 'CanManageSettings';
+    static CanViewAccounts = 'CanViewAccounts';
     static CanManageAccounts = 'CanManageAccounts';
+    static CanViewFarmers = 'CanViewFarmers';
+    static CanManageFarmers = 'CanManageFarmers';
+    static CanViewFarms = 'CanViewFarms';
+    static CanManageFarms = 'CanManageFarms';
+    static CanViewSeasons = 'CanViewSeasons';
+    static CanManageSeasons = 'CanManageSeasons';
+    static CanViewRequests = 'CanViewRequests';
+    static CanManageRequests = 'CanManageRequests';
+    static CanViewServices = 'CanViewServices';
+    static CanManageServices = 'CanManageServices';
+
+
     static CanViewSubscribers = 'CanViewSubscribers';
     static CanManageSubscribers = 'CanManageSubscribers';
     static CanUploadSubscribers = 'CanUploadSubscribers';

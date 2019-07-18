@@ -9,6 +9,8 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Observable, Subject } from 'rxjs';
 import { finalize, takeUntil } from 'rxjs/operators';
 
+import { SettingsService } from 'src/app/app-settings/settings/settings.service';
+
 declare var $: any;
 
 @Component({
@@ -22,7 +24,9 @@ export class UserComponent implements OnInit, OnDestroy {
   showForm: boolean;
   saving: boolean;
   deleting: boolean;
+  loadingAreas: boolean;
 
+  areas$: Observable<any[]>
   users$: Observable<User[]>
   roles$: Observable<Role[]>;
   userForm: FormGroup;
@@ -35,7 +39,8 @@ export class UserComponent implements OnInit, OnDestroy {
   @BlockUI() blockForm: NgBlockUI;
   unsubscribe$ = new Subject<void>()
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private roleService: RoleService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private roleService: RoleService,
+    private settingsService: SettingsService) {
     this.userForm = this.formBuilder.group({
       id: new FormControl(''),
       name: new FormControl('', Validators.required),
@@ -50,13 +55,15 @@ export class UserComponent implements OnInit, OnDestroy {
         Validators.minLength(6)
       ])),
       confirmPassword: new FormControl('', Validators.required),
-      roleId: new FormControl('', Validators.required)
+      roleId: new FormControl('', Validators.required),
+      areaId: new FormControl('')
     }, { validator: this.checkPasswords });
   }
 
   ngOnInit() {
     this.fetchUsers();
     this.fetchRoles();
+    this.loadAreas()
     // this.params = <UserQuery>{ page: 0, size: 5, sortField: "id", sortOrder: -1 };
   }
 
@@ -156,5 +163,12 @@ export class UserComponent implements OnInit, OnDestroy {
 
   private fetchRoles() {
     this.roles$ = this.roleService.fetch()
+  }
+
+  private loadAreas() {
+    this.loadingAreas = true
+    this.areas$ = this.settingsService.fetch2('catchmentareas').pipe(
+      finalize(() => this.loadingAreas = false )
+    )
   }
 }
