@@ -61,8 +61,8 @@ export class FarmerService {
   }
 
   saveFarmer(params: Farmer) {
-    if (params.id) { return this.http.put<ResponseObject<Farmer>>(`${environment.baseUrl}/farmers`, params) }
-    return this.http.post<ResponseObject<Farmer>>(`${environment.baseUrl}/farmers`, params)
+    if (params.id) { return this.http.put<ResponseObject<Farmer>>(`${environment.baseUrl}/farmers/adminput`, params) }
+    return this.http.post<ResponseObject<Farmer>>(`${environment.baseUrl}/farmers/adminpost`, params)
   }
 
   fetchFarms() {
@@ -102,8 +102,8 @@ export class FarmerService {
   }
 
   saveFarm(params: Farm) {
-    if (params.id) { return this.http.put<ResponseObject<Farm>>(`${environment.baseUrl}/farms`, params) }
-    return this.http.post<ResponseObject<Farm>>(`${environment.baseUrl}/farms`, params)
+    if (params.id) { return this.http.put<ResponseObject<Farm>>(`${environment.baseUrl}/farms/adminput`, params) }
+    return this.http.post<ResponseObject<Farm>>(`${environment.baseUrl}/farms/adminpost`, params)
   }
 
 }

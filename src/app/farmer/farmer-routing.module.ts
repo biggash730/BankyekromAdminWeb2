@@ -5,9 +5,7 @@ import { FarmerComponent } from './farmer.component';
 import { AuthGuard } from '../auth-guard.service';
 import { FarmerListComponent } from './farmer-list/farmer-list.component';
 import { FarmerFormComponent } from './farmer-form/farmer-form.component';
-// import { SubscriberImportComponent } from './subscriber-import/subscriber-import.component';
-// import { SubscriberExportComponent } from './subscriber-export/subscriber-export.component';
-// import { SubscriberDetailsComponent } from './subscriber-details/subscriber-details.component';
+import { FarmerDetailsComponent } from './farmer-details/farmer-details.component';
 
 const routes: Routes = [
   {
@@ -35,36 +33,11 @@ const routes: Routes = [
         component: FarmerFormComponent,
         canActivate: [AuthGuard]
       },
-      // {
-      //   path: RouteNames.subscriberGroupList,
-      //   component: SubscriberGroupListComponent,
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: RouteNames.subscriberGroupForm,
-      //   component: SubscriberGroupFormComponent,
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: RouteNames.subscriberGroupFormEdit,
-      //   component: SubscriberGroupFormComponent,
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: RouteNames.subscriberImport,
-      //   component: SubscriberImportComponent,
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: RouteNames.subscriberExport,
-      //   component: SubscriberExportComponent,
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: RouteNames.subscriberDetailsId,
-      //   component: SubscriberDetailsComponent,
-      //   canActivate: [AuthGuard]
-      // }
+      {
+        path: RouteNames.farmerDetailsId,
+        component: FarmerDetailsComponent,
+        canActivate: [AuthGuard]
+      }
     ]
   }
 ];
