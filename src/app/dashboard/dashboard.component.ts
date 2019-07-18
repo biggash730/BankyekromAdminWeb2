@@ -57,19 +57,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private dashboardService: DashboardService) { }
 
   ngOnInit() {
-    this.initDates()
-    this.loadSubscriberTypes()
-    this.getSubscriberSummary()
-    this.loadAreas()
-    this.loadPillars()
-    this.loadPrograms()
-    this.loadDistrict()
-    this.getSustainabilityStatistics(this.filter)
+    // this.initDates()
+    // this.loadSubscriberTypes()
+    // this.getSubscriberSummary()
+    // this.loadAreas()
+    // this.loadPillars()
+    // this.loadPrograms()
+    // this.loadDistrict()
+    // this.getSustainabilityStatistics(this.filter)
   }
 
   ngAfterViewInit() {
-    this.landAreaDoughnut()
-    this.subscriberCommodityPie()
+    // this.landAreaDoughnut()
+    // this.subscriberCommodityPie()
   }
 
   subscriberTypeOnChange() {
