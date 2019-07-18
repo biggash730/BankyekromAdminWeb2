@@ -7,17 +7,11 @@ import { map } from 'rxjs/operators';
 export class LookUps {
   static get models() {
     return [
-      {label: 'Region', description: 'Add, Edit and Delete Regions', name: 'region', icon: 'fa fa-globe'},
-      {label: 'District', description: 'Add, Edit and Delete Districts', name: 'district', icon: 'fa fa-globe'},
-      {label: 'Language', description: 'Add, Edit and Delete Languages', name: 'language', icon: 'fa fa-language'},
-      {label: 'Tag', description: 'Add, Edit and Delete Tags', name: 'tags', icon: 'fa fa-tag'},
-      {label: 'Subscriber Type', description: 'Add, Edit and Delete Subscriber Types', name: 'subscriberType', icon: 'fa fa-address-book'},
-      {label: 'Educational Level', description: 'Add, Edit and Delete Educational Levels', name: 'educationalLevel', icon: 'fa fa-graduation-cap'},
-      {label: 'Commodity', description: 'Add, Edit and Delete Commodities', name: 'commodity', icon: 'fa fa-th-list'},
-      {label: 'Program', description: 'Add, Edit and Delete Programs', name: 'program', icon: 'fa fa-bandcamp'},
-      {label: 'Area', description: 'Add, Edit and Delete Areas', name: 'area', icon: 'fa fa-square'},
-      {label: 'Pillar', description: 'Add, Edit and Delete Pillars', name: 'pillar', icon: 'fa fa-paragraph'},
-      {label: 'Topic', description: 'Add, Edit and Delete Topics', name: 'topic', icon: 'fa fa-align-center'}
+      {label: 'Services', description: 'Add, Edit and Delete Services', name: 'services', icon: 'fa fa-list-ul'},
+      {label: 'Varieties', description: 'Add, Edit and Delete Varieties', name: 'varieties', icon: 'fa fa-shopping-basket'},
+      {label: 'Regions', description: 'Add, Edit and Delete Regions', name: 'regions', icon: 'fa fa-globe'},
+      {label: 'Districts', description: 'Add, Edit and Delete Districts', name: 'districts', icon: 'fa fa-location-arrow'},
+      {label: 'Catchment Areas', description: 'Add, Edit and Delete Areas', name: 'catchmentareas', icon: 'fa fa-map-marker'}
     ];
   }
 }

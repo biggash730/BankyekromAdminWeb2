@@ -26,22 +26,19 @@ export class GeneralLookupComponent implements OnInit, OnDestroy {
   deleting: boolean;
   selectedRecord: any;
   @BlockUI() blockForm: NgBlockUI;
-  subscriberTypes$: Observable<Lookup[]>
   regions$: Observable<Lookup[]>
-  pillars$: Observable<Lookup[]>
-  commodities$: Observable<Lookup[]>
+  districts$: Observable<Lookup[]>
   unsubscribe$ = new Subject<void>()
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private settingsService: SettingsService) {
     this.formGroup = this.formBuilder.group({
       id: new FormControl(''),
       name: new FormControl('', Validators.required),
-      subscriberTypeId: new FormControl(''),
       regionId: new FormControl(''),
-      pillarId: new FormControl(''),
-      commodityId: new FormControl(''),
+      districtId: new FormControl(''),
       notes: new FormControl(''),
-      isPrimary: new FormControl(''),
+      code: new FormControl(''),
+      harvestPeriod: new FormControl(15),
       createdAt: new FormControl(null),
       createdBy: new FormControl(null),
       modifiedAt: new FormControl(null),
@@ -53,10 +50,8 @@ export class GeneralLookupComponent implements OnInit, OnDestroy {
     this.modelName = this.activatedRoute.snapshot.paramMap.get('model');
     this.model = LookUps.models.find(model => model.name === this.modelName)
     this.fetchRecords();
-    if (this.modelName === 'commodity') { this.loadSubscriberType() }
-    if (this.modelName === 'district') { this.loadRegions() }
-    if (this.modelName === 'topic') { this.loadPillars() }
-    if (this.modelName === 'program') { this.loadCommodities() }
+    if (this.modelName === 'districts') { this.loadRegions() }
+    if (this.modelName === 'catchmentareas') { this.loadDistricts() }
   }
   ngOnDestroy() {
     this.unsubscribe$.next()
@@ -78,10 +73,7 @@ export class GeneralLookupComponent implements OnInit, OnDestroy {
     this.formGroup.patchValue(record)
     this.title = 'Edit ' + this.model.label;
     this.showForm = true;
-    if (this.modelName === 'commodity') { this.formGroup.patchValue({ subscriberTypeId: record.subscriberType.id }) }
-    if (this.modelName === 'district') { this.formGroup.patchValue({ regionId: record.region.id }) }
-    if (this.modelName === 'topic') { this.formGroup.patchValue({ pillarId: record.pillar.id }) }
-    if (this.modelName === 'program') { this.formGroup.patchValue({ commodityId: record.commodity.id }) }
+    if (this.modelName === 'districts') { this.formGroup.patchValue({ regionId: record.region.id }) }
   }
 
   save() {
@@ -133,19 +125,11 @@ export class GeneralLookupComponent implements OnInit, OnDestroy {
     }, () => this.blockForm.stop());
   }
 
-  private loadSubscriberType() {
-    this.subscriberTypes$ = this.settingsService.fetch2('subscribertype')
-  }
-
   private loadRegions() {
-    this.regions$ = this.settingsService.fetch2('region')
+    this.regions$ = this.settingsService.fetch2('regions')
   }
 
-  private loadPillars() {
-    this.pillars$ = this.settingsService.fetch2('pillar')
-  }
-
-  private loadCommodities() {
-    this.commodities$ = this.settingsService.fetch2('commodity')
+  private loadDistricts() {
+    this.districts$ = this.settingsService.fetch2('districts')
   }
 }

@@ -16,32 +16,19 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-3">{{title}}</h5>
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" formControlName="name" [class.invalid-input]="formGroup.controls.name.dirty && formGroup.controls.name.invalid">
-                            <div class="invalid-msg" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors">
-                                This field is required
-                            </div>
-                        </div>
-                        <div class="form-group" *ngIf="modelName === 'commodity'">
-                            <label>Subscriber Type</label>
-                            <select class="form-control" formControlName="subscriberTypeId" [class.is-invalid]="formGroup.controls.subscriberTypeId.dirty && formGroup.controls.subscriberTypeId.invalid">
-                                <option *ngFor="let subscriberType of subscriberTypes$ | async"
-                                    [ngValue]="subscriberType.id">{{subscriberType.name}}</option>
+                        <div class="form-group" *ngIf="modelName === 'catchmentareas'">
+                            <label>District</label>
+                            <select class="form-control" formControlName="districtId" [class.is-invalid]="formGroup.controls.districtId.dirty && formGroup.controls.districtId.invalid">
+                                <option *ngFor="let dist of districts$ | async" [ngValue]="dist.id">{{dist.code}} - {{dist.name}}
+                                </option>
                             </select>
-                            <div class="invalid-feedback" *ngIf="formGroup.controls.subscriberTypeId.dirty && formGroup.controls.subscriberTypeId.invalid">
-                                <div *ngIf="formGroup.controls.subscriberTypeId.errors.required">
+                            <div class="invalid-feedback" *ngIf="formGroup.controls.districtId.dirty && formGroup.controls.districtId.invalid">
+                                <div *ngIf="formGroup.controls.districtId.errors.required">
                                     This field is required
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="modelName === 'commodity'">
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                                <input type="checkbox" id="customcheckboxInlinex" name="customcheckboxInlinex" class="custom-control-input" formControlName="isPrimary">
-                                <label class="custom-control-label" for="customcheckboxInlinex">Is Primary</label>
-                            </div>
-                        </div>
-                        <div class="form-group" *ngIf="modelName === 'district'">
+                        <div class="form-group" *ngIf="modelName === 'districts'">
                             <label>Region</label>
                             <select class="form-control" formControlName="regionId" [class.is-invalid]="formGroup.controls.regionId.dirty && formGroup.controls.regionId.invalid">
                                 <option *ngFor="let region of regions$ | async" [ngValue]="region.id">{{region.name}}
@@ -53,30 +40,29 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="modelName === 'topic'">
-                            <label>Pillar</label>
-                            <select class="form-control" formControlName="pillarId" [class.is-invalid]="formGroup.controls.pillarId.dirty && formGroup.controls.pillarId.invalid">
-                                <option *ngFor="let pillar of pillars$ | async" [ngValue]="pillar.id">{{pillar.name}}
-                                </option>
-                            </select>
-                            <div class="invalid-feedback" *ngIf="formGroup.controls.pillarId.dirty && formGroup.controls.pillarId.invalid">
-                                <div *ngIf="formGroup.controls.pillarId.errors.required">
-                                    This field is required
-                                </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" formControlName="name" [class.invalid-input]="formGroup.controls.name.dirty && formGroup.controls.name.invalid">
+                            <div class="invalid-msg" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors">
+                                This field is required
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="modelName === 'program'">
-                            <label>Commodity</label>
-                            <select class="form-control" formControlName="commodityId" [class.is-invalid]="formGroup.controls.commodityId.dirty && formGroup.controls.commodityId.invalid">
-                                <option *ngFor="let commodity of commodities$ | async" [ngValue]="commodity.id">
-                                    {{commodity.name}}</option>
-                            </select>
-                            <div class="invalid-feedback" *ngIf="formGroup.controls.commodityId.dirty && formGroup.controls.commodityId.invalid">
-                                <div *ngIf="formGroup.controls.commodityId.errors.required">
-                                    This field is required
-                                </div>
+                        <div class="form-group" *ngIf="modelName === 'districts' || modelName === 'catchmentareas'">
+                            <label>Code</label>
+                            <input type="text" class="form-control" formControlName="code" [class.invalid-input]="formGroup.controls.code.dirty && formGroup.controls.code.invalid">
+                            <div class="invalid-msg" *ngIf="formGroup.controls.code.dirty && formGroup.controls.code.errors">
+                                This field is required
                             </div>
                         </div>
+
+                        <div class="form-group" *ngIf="modelName === 'varieties'">
+                            <label>Harvest Period (Months)</label>
+                            <input type="number" class="form-control" formControlName="harvestPeriod" [class.invalid-input]="formGroup.controls.harvestPeriod.dirty && formGroup.controls.harvestPeriod.invalid">
+                            <div class="invalid-msg" *ngIf="formGroup.controls.harvestPeriod.dirty && formGroup.controls.harvestPeriod.errors">
+                                This field is required
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>Description</label>
                             <textarea rows="3" class="form-control" formControlName="notes"></textarea>
@@ -104,11 +90,10 @@
                     <tr>
                         <th class="table-index">#</th>
                         <th>Name</th>
-                        <th *ngIf="modelName === 'commodity'">Subscriber Type</th>
-                        <th *ngIf="modelName === 'commodity'">Is Primary</th>
-                        <th *ngIf="modelName === 'district'">Region</th>
-                        <th *ngIf="modelName === 'topic'">Pillar</th>
-                        <th *ngIf="modelName === 'program'">Commodity</th>
+                        <th *ngIf="modelName === 'districts' || modelName === 'catchmentareas'">Code</th>
+                        <th *ngIf="modelName === 'districts'">Region</th>
+                        <th *ngIf="modelName === 'varieties'">Harvest Period (Months)</th>
+                        <th *ngIf="modelName === 'catchmentareas'">District</th>
                         <th>Description</th>
                     </tr>
                 </thead>
@@ -116,11 +101,10 @@
                     <tr *ngFor="let record of records; let i = index" class="pointer" (click)="selectRow(record)">
                         <td class="table-index">{{i + 1}}.</td>
                         <td>{{record.name}}</td>
-                        <td *ngIf="modelName === 'commodity'">{{record.subscriberType.name}}</td>
-                        <td *ngIf="modelName === 'commodity'">{{record.isPrimary}}</td>
-                        <td *ngIf="modelName === 'district'">{{record.region.name}}</td>
-                        <td *ngIf="modelName === 'topic'">{{record.pillar.name}}</td>
-                        <td *ngIf="modelName === 'program'">{{record.commodity.name}}</td>
+                        <td *ngIf="modelName === 'districts' || modelName === 'catchmentareas'">{{record.code}}</td>
+                        <td *ngIf="modelName === 'districts'">{{record.region.name}}</td>
+                        <td *ngIf="modelName === 'varieties'">{{record.harvestPeriod}}</td>
+                        <td *ngIf="modelName === 'catchmentareas'">{{record.district.name}}</td>
                         <td>{{record.notes}}</td>
                     </tr>
                 </tbody>

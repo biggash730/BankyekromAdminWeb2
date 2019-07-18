@@ -105,12 +105,12 @@ export class AppComponent implements OnInit {
   private setMenuItems() {
     this.menus = [
       { label: 'Dashboard', route: RouteNames.dashboard, icon: 'fa fa-home fa-lg', privilege: Privileges.CanViewDashboard},
-      { label: 'Subscribers', route: RouteNames.subscriber, icon: 'fa fa-users fa-lg', privilege: Privileges.CanViewSubscribers },
-      { label: 'Content', route: RouteNames.content, icon: 'fa fa-object-group fa-lg', privilege: Privileges.CanViewContent },
-      { label: 'Campaigns', route: RouteNames.campaign, icon: 'fa fa-bullhorn fa-lg', privilege: Privileges.CanViewCampaigns },
-      { label: 'Account', route: RouteNames.admin, icon: 'fa fa-user fa-lg', privilege: Privileges.CanManageAccounts },
+      { label: 'Seasons', route: RouteNames.subscriber, icon: 'fa fa-users fa-lg', privilege: Privileges.CanViewSubscribers },
+      { label: 'Services', route: RouteNames.content, icon: 'fa fa-object-group fa-lg', privilege: Privileges.CanViewContent },
+      { label: 'Farmers', route: RouteNames.campaign, icon: 'fa fa-bullhorn fa-lg', privilege: Privileges.CanViewCampaigns },
+      { label: 'Reports', route: RouteNames.reports, icon: 'fa fa-file-text fa-lg', privilege: Privileges.CanViewReports },
       { label: 'Settings', route: RouteNames.appSettings, icon: 'fa fa-gear fa-lg', privilege: Privileges.CanManageSettings },
-      { label: 'Reports', route: RouteNames.reports, icon: 'fa fa-file-text fa-lg', privilege: Privileges.CanViewReports }
+      { label: 'Account', route: RouteNames.admin, icon: 'fa fa-user fa-lg', privilege: Privileges.CanManageAccounts }
     ];
   }
 }

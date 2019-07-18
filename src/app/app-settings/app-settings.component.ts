@@ -15,7 +15,6 @@ export class AppSettingsComponent implements OnInit {
   ngOnInit() {
     this.submenus = [
       { label: 'Settings', route: RouteNames.settings, icon: '' },
-      // { label: "Credit Transactions", route: RouteNames.subscriberGroupList, icon: "" }
     ]
   }
 
