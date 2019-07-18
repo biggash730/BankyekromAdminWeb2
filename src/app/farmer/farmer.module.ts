@@ -11,6 +11,9 @@ import { FarmerComponent } from './farmer.component';
 import { FarmerListComponent } from './farmer-list/farmer-list.component';
 import { FarmerFormComponent } from './farmer-form/farmer-form.component';
 import { FarmerDetailsComponent } from './farmer-details/farmer-details.component';
+import { FarmListComponent } from './farm-list/farm-list.component';
+import { FarmFormComponent } from './farm-form/farm-form.component';
+import { FarmDetailsComponent } from './farm-details/farm-details.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { FarmerDetailsComponent } from './farmer-details/farmer-details.componen
     FarmerComponent,
     FarmerListComponent,
     FarmerFormComponent,
-    FarmerDetailsComponent
+    FarmerDetailsComponent,
+    FarmListComponent,
+    FarmFormComponent,
+    FarmDetailsComponent
   ],
   imports: [
     CommonModule,
