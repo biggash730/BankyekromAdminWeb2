@@ -60,5 +60,6 @@ export interface FarmsQuery extends ModelQuery {
     numberOfAcres: number
     farmerId: number
     isDeleted: boolean
-    ghanaPostGps: string
+    ghanaPostGps: string,
+    size: number
 }

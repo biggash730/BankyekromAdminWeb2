@@ -4,10 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BlockUIModule } from 'ng-block-ui';
-
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './shared/loading.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { LoginComponent } from './auth/login.component';
 import { Interceptor } from './shared/interceptor';

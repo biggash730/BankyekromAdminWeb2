@@ -14,6 +14,8 @@ import { FarmerDetailsComponent } from './farmer-details/farmer-details.componen
 import { FarmListComponent } from './farm-list/farm-list.component';
 import { FarmFormComponent } from './farm-form/farm-form.component';
 import { FarmDetailsComponent } from './farm-details/farm-details.component';
+import { FarmsMapComponent } from './farms-map/farms-map.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { FarmDetailsComponent } from './farm-details/farm-details.component';
     FarmerDetailsComponent,
     FarmListComponent,
     FarmFormComponent,
-    FarmDetailsComponent
+    FarmDetailsComponent,
+    FarmsMapComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +38,10 @@ import { FarmDetailsComponent } from './farm-details/farm-details.component';
     InternationalPhoneNumberModule,
     NgbTabsetModule,
     FarmerRoutingModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDGIvGsTpPG12ioffl1t5dK3I9KfeCee1g'
+    })
   ]
 })
 export class FarmerModule { }

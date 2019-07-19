@@ -27,7 +27,7 @@ export class RouteNames {
     static farmFormEdit = 'farms/form/:id';
     static farmDetails = 'farms/details';
     static farmDetailsId = 'farms/details/:id';
-    static farmMap = 'farms/map';
+    static farmMap = 'farmsmap';
 
     static service = 'service';
 

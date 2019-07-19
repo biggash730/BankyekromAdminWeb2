@@ -86,6 +86,18 @@ export class FarmerService {
       )
   }
 
+  queryMapFarms(params: FarmsQuery) {
+    return this.http.post<ResponseObject<Farm[]>>(`${environment.baseUrl}/farms/adminmapquery`, params)
+      .pipe(
+        map(res => {
+          if (res.success) {
+            this.totalFarms = res.total
+            return res.data
+          }
+        })
+      )
+  }
+
   findFarm(id: number) {
     return this.http.get<ResponseObject<Farm>>(`${environment.baseUrl}/farms/get/${id}`)
       .pipe(

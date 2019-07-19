@@ -9,6 +9,7 @@ import { FarmerDetailsComponent } from './farmer-details/farmer-details.componen
 import { FarmListComponent } from './farm-list/farm-list.component';
 import { FarmFormComponent } from './farm-form/farm-form.component';
 import { FarmDetailsComponent } from './farm-details/farm-details.component';
+import { FarmsMapComponent } from './farms-map/farms-map.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,11 @@ const routes: Routes = [
       {
         path: RouteNames.farmDetailsId,
         component: FarmDetailsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: RouteNames.farmMap,
+        component: FarmsMapComponent,
         canActivate: [AuthGuard]
       }
     ]
