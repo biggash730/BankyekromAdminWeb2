@@ -4,70 +4,38 @@
             <div class="card">
                 <div class="card-body mx-md-4">
                     <div class="card-title text-uppercase text-muted ml-md-n4">
-                        <span class="h5">Farmer Form</span>
+                        <span class="h5">Farm Form</span>
                         <button type="button" class="btn btn-light border border-dark float-right" (click)="closeForm()">
               <i class="fa fa-arrow-left"></i> Back
             </button>
                     </div>
                     <br>
                     <div class="row">
-                        <div class="form-group col-sm-12 col-md-6">
-                            <label>Name</label>
-                            <input type="text" class="form-control" formControlName="name" [class.is-invalid]="name.dirty && name.invalid">
-                            <div class="invalid-feedback" *ngIf="name.dirty && name.invalid">
-                                <div *ngIf="name.errors.required">
+                        <div class="form-group col-sm-12 col-md-12">
+                            <label>Farmer</label>
+                            <select class="form-control" formControlName="farmerId" [class.is-invalid]="farmerId.dirty && farmerId.invalid">
+                                <option *ngFor="let f of farmers$ | async" [ngValue]="f.id">{{f.name}}</option>
+                              </select>
+                            <div class="invalid-feedback" *ngIf="farmerId.dirty && farmerId.invalid">
+                                <div *ngIf="farmerId.errors.required">
                                     This field is required
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-6">
-                            <label>Phone Number</label><br>
-                            <input type="text" class="form-control" formControlName="phoneNumber" [class.is-invalid]="phoneNumber.dirty && phoneNumber.invalid">
-                            <div class="invalid-msg" *ngIf="phoneNumber.dirty && phoneNumber.invalid">
-                                <div *ngIf="phoneNumber.errors.required">
-                                    This field is required
-                                </div>
-                                <div *ngIf="!phoneNumber.valid">
-                                    Invalid phone number
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="form-group col-sm-12 col-md-6">
-                            <label>Date of Birth</label>
-                            <input type="date" class="form-control" formControlName="dateOfBirth" [class.is-invalid]="dateOfBirth.dirty && dateOfBirth.invalid">
-                            <div class="invalid-msg" *ngIf="dateOfBirth.dirty && dateOfBirth.errors">
-                                This field is required
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-12 col-md-6">
-                            <label>Gender</label><br>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="customRadioInline1" class="custom-control-input" value="Male" formControlName="gender">
-                                <label class="custom-control-label" for="customRadioInline1">Male</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="customRadioInline2" class="custom-control-input" value="Female" formControlName="gender">
-                                <label class="custom-control-label" for="customRadioInline2">Female</label>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="form-group col-sm-12 col-md-4">
-                            <label>Catchment Area</label>
-                            <select class="form-control" formControlName="areaId" [class.is-invalid]="areaId.dirty && areaId.invalid">
-                        <option *ngFor="let area of areas$ | async" [ngValue]="area.id">{{area.name}}</option>
-                      </select>
-                            <div class="invalid-feedback" *ngIf="areaId.dirty && areaId.invalid">
-                                <div *ngIf="areaId.errors.required">
+                            <label>District</label>
+                            <select class="form-control" formControlName="districtId" [class.is-invalid]="districtId.dirty && districtId.invalid">
+                            <option *ngFor="let d of districts$ | async" [ngValue]="d.id">{{d.name}}</option>
+                          </select>
+                            <div class="invalid-feedback" *ngIf="districtId.dirty && districtId.invalid">
+                                <div *ngIf="districtId.errors.required">
                                     This field is required
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-sm-12 col-md-4">
+                        <div class="form-group col-sm-12 col-md-6">
                             <label>Town</label>
                             <input type="text" class="form-control" formControlName="town" [class.is-invalid]="town.dirty && town.invalid">
                             <div class="invalid-feedback" *ngIf="town.dirty && town.invalid">
@@ -76,7 +44,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-sm-12 col-md-4">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-6">
+                            <label>Location</label>
+                            <input type="text" class="form-control" formControlName="location" [class.is-invalid]="location.dirty && location.invalid">
+                            <div class="invalid-feedback" *ngIf="location.dirty && location.invalid">
+                                <div *ngIf="location.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-6">
                             <label>Ghana Post GPS</label>
                             <input type="text" class="form-control" formControlName="ghanaPostGps" [class.is-invalid]="ghanaPostGps.dirty && ghanaPostGps.invalid">
                             <div class="invalid-feedback" *ngIf="ghanaPostGps.dirty && ghanaPostGps.invalid">
@@ -86,11 +65,33 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="form-group  col-sm-12 col-md-12">
-                            <label>Residential Address</label>
-                            <textarea rows="2" class="form-control" formControlName="residentialAddress"></textarea>
+                        <div class="form-group col-sm-12 col-md-4">
+                            <label>Number of Acres</label>
+                            <input type="number" class="form-control" formControlName="numberOfAcres" [class.is-invalid]="numberOfAcres.dirty && numberOfAcres.invalid">
+                            <div class="invalid-feedback" *ngIf="numberOfAcres.dirty && numberOfAcres.invalid">
+                                <div *ngIf="numberOfAcres.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-4">
+                            <label>Longitude</label>
+                            <input type="number" class="form-control" formControlName="longitude" [class.is-invalid]="longitude.dirty && longitude.invalid">
+                            <div class="invalid-feedback" *ngIf="longitude.dirty && longitude.invalid">
+                                <div *ngIf="longitude.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-4">
+                            <label>Latitude</label>
+                            <input type="number" class="form-control" formControlName="latitude" [class.is-invalid]="latitude.dirty && latitude.invalid">
+                            <div class="invalid-feedback" *ngIf="latitude.dirty && latitude.invalid">
+                                <div *ngIf="latitude.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

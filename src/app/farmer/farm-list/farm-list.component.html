@@ -1,15 +1,8 @@
 <div class="row">
     <div class="col-sm-12">
-        <filter class="float-left" placeholder="Search by name" label="name" [model]="name" (search)="getFarmers($event)" [filter]="filter">
-            <div class="form-group">
-                <input type="text" class="form-control" name="phone" placeholder="Phone Number" [(ngModel)]="filter.phoneNumber">
-            </div>
+        <filter class="float-left" placeholder="Search by farmer name" label="name" [model]="name" (search)="getFarms($event)" [filter]="filter">
             <div class="form-group">
                 <input type="text" class="form-control" name="town" placeholder="Town" [(ngModel)]="filter.town">
-            </div>
-            <div class="form-group">
-                <ng-select [items]="areas$ | async" bindLabel="name" bindValue="id" placeholder="Select Catchment Area" [clearable]="true" [(ngModel)]="filter.areaId">
-                </ng-select>
             </div>
             <div class="form-group">
                 <ng-select [items]="districts$ | async" bindLabel="name" bindValue="id" placeholder="Select District" [clearable]="true" [(ngModel)]="filter.districtId">
@@ -20,8 +13,8 @@
                 </ng-select>
             </div>
         </filter>
-        <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageFarmers">New
-      Farmer</button>
+        <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageFarms">New
+      Farm</button>
     </div>
 </div>
 <hr>
@@ -33,32 +26,36 @@
                     <thead>
                         <tr style="border-bottom: 3px solid green;">
                             <th>#</th>
-                            <th>Name</th>
+                            <th>Farmer</th>
                             <th>Phone</th>
-                            <th>Gender</th>
+                            <th>Farm Code</th>
+                            <th>Num. of Acres</th>
                             <th>Town</th>
-                            <th>Catchment Area</th>
+                            <th>Location</th>
                             <th>District</th>
                             <th>Region</th>
-                            <th>Farms</th>
+                            <th>Requests</th>
+                            <th>Seasons</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let farmer of farmers$ | async; let i = index">
+                        <tr *ngFor="let farm of farms$ | async; let i = index">
                             <td>{{((currentPage - 1) * size) + i + 1}}</td>
-                            <td>{{farmer.name}}</td>
-                            <td>{{farmer.phoneNumber}}</td>
-                            <td>{{farmer.gender}}</td>
-                            <td>{{farmer.town}}</td>
-                            <td>{{farmer.area}}</td>
-                            <td>{{farmer.district}}</td>
-                            <td>{{farmer.region}}</td>
-                            <td>{{farmer.farms}}</td>
+                            <td>{{farm.farmer}}</td>
+                            <td>{{farm.phoneNumber}}</td>
+                            <td>{{farm.code}}</td>
+                            <td>{{farm.numberOfAcres}}</td>
+                            <td>{{farm.town}}</td>
+                            <td>{{farm.location}}</td>
+                            <td>{{farm.district}}</td>
+                            <td>{{farm.region}}</td>
+                            <td>{{farm.seasons}}</td>
+                            <td>{{farm.requests}}</td>
                             <td>
-                                <a class="pointer" (click)="view(farmer.id)"><i class="fa fa-eye"></i></a> &nbsp;
-                                <a class="pointer" (click)="editForm(farmer.id)" appAuthorize="CanManageFarmers"><i class="fa fa-edit"></i></a> &nbsp;
-                                <a class="pointer text-danger" (click)="delete(farmer.id)" appAuthorize="CanManageFarmers"><i class="fa fa-trash"></i></a>
+                                <a class="pointer" (click)="view(farm.id)"><i class="fa fa-eye"></i></a> &nbsp;
+                                <a class="pointer" (click)="editForm(farm.id)" appAuthorize="CanManageFarms"><i class="fa fa-edit"></i></a> &nbsp;
+                                <a class="pointer text-danger" (click)="delete(farm.id)" appAuthorize="CanManageFarms"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     </tbody>

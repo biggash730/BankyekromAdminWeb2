@@ -4,7 +4,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FarmerService } from '../shared/farmer.service';
 import { Observable } from 'rxjs';
-import { Farmer } from '../shared/farmer.model';
+import { Farm } from '../shared/farmer.model';
 import { RouteNames } from 'src/app/shared/constants';
 import { DateHelpers } from 'src/app/shared/utils';
 
@@ -16,7 +16,7 @@ import { DateHelpers } from 'src/app/shared/utils';
 export class FarmDetailsComponent implements OnInit {
 
   @BlockUI() blockUi: NgBlockUI
-  farmer$: Observable<Farmer>
+  farm$: Observable<Farm>
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -25,22 +25,22 @@ export class FarmDetailsComponent implements OnInit {
   ngOnInit() {
     const id = +this.activatedRoute.snapshot.paramMap.get('id')
     if (id) {
-      this.getFarmerDetails(id)
+      this.getFarmDetails(id)
     }
   }
 
   closeForm() {
-    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmerList}`)
+    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmList}`)
   }
 
   editForm(id: number) {
-    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmerForm}/${id}`);
+    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmForm}/${id}`);
   }
 
 
-  private getFarmerDetails(id: number) {
+  private getFarmDetails(id: number) {
     this.blockUi.start('Loading...')
-    this.farmer$ = this.farmerService.findFarmer(id)
+    this.farm$ = this.farmerService.findFarm(id)
       .pipe(
         finalize(() => this.blockUi.stop())
       )

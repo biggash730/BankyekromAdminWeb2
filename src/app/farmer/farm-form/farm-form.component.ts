@@ -7,7 +7,7 @@ import { ActivatedRoute, Router, Route } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { RouteNames } from 'src/app/shared/constants';
 import { MessageDialog } from 'src/app/shared/message_helper';
-import { Farmer } from '../shared/farmer.model';
+import { Farm } from '../shared/farmer.model';
 import { SettingsService } from 'src/app/app-settings/settings/settings.service';
 import { shareReplay, takeUntil, finalize } from 'rxjs/operators';
 
@@ -19,10 +19,12 @@ import { shareReplay, takeUntil, finalize } from 'rxjs/operators';
 export class FarmFormComponent implements OnInit, OnDestroy {
 
   form: FormGroup
-  areas$: Observable<any[]>
+  districts$: Observable<any[]>
+  farmers$: Observable<any[]>
   unsubscribe$ = new Subject<void>();
   @BlockUI() blockUi: NgBlockUI
-  loadingAreas: boolean
+  loadingDistricts: boolean
+  loadingFarmers: boolean
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -32,9 +34,10 @@ export class FarmFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setupForm()
-    this.loadAreas()
+    this.loadDistricts()
+    this.loadFarmers()
     const id = +this.activatedRoute.snapshot.paramMap.get('id')
-    if (id) { this.findFarmer(id) }
+    if (id) { this.findFarm(id) }
     this.disableControls()
   }
 
@@ -46,7 +49,7 @@ export class FarmFormComponent implements OnInit, OnDestroy {
   save(formData: any) {
     const params = formData
     this.blockUi.start('Saving...')
-    this.farmerService.saveFarmer(formData)
+    this.farmerService.saveFarm(formData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => {
         this.blockUi.stop()
@@ -55,30 +58,31 @@ export class FarmFormComponent implements OnInit, OnDestroy {
   }
 
   closeForm() {
-    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmerList}`)
+    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmList}`)
   }
 
   get id() { return this.form.get('id') }
-  get phoneNumber() { return this.form.get('phoneNumber') }
-  get name() { return this.form.get('name') }
-  get areaId() { return this.form.get('areaId') }
-  get gender() { return this.form.get('gender') }
-  get residentialAddress() { return this.form.get('residentialAddress') }
+  get code() { return this.form.get('code') }
+  get farmerId() { return this.form.get('farmerId') }
+  get districtId() { return this.form.get('districtId') }
   get town() { return this.form.get('town') }
+  get location() { return this.form.get('location') }
+  get numberOfAcres() { return this.form.get('numberOfAcres') }
+  get longitude() { return this.form.get('longitude') }
+  get latitude() { return this.form.get('latitude') }
   get ghanaPostGps() { return this.form.get('ghanaPostGps') }
-  get dateOfBirth() { return this.form.get('dateOfBirth') }
 
   private setupForm() {
     this.form = this.fb.group({
       id: new FormControl(''),
-      phoneNumber: new FormControl('', Validators.required),
-      name: new FormControl('', Validators.required),
-      areaId: new FormControl(null, Validators.required),
-      gender: new FormControl('Male', Validators.required),
-      residentialAddress: new FormControl(''),
+      farmerId: new FormControl(null, Validators.required),
+      districtId: new FormControl(null, Validators.required),
       town: new FormControl(''),
+      location: new FormControl(''),
+      numberOfAcres: new FormControl(0),
+      longitude: new FormControl(0),
+      latitude: new FormControl(0),
       ghanaPostGps: new FormControl(''),
-      dateOfBirth: new FormControl(null),
       createdAt: new FormControl(null),
       createdBy: new FormControl(null),
       modifiedAt: new FormControl(null),
@@ -86,20 +90,21 @@ export class FarmFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  private loadAreas() {
-    this.areas$ = this.settingsService.fetch2('catchmentareas')
+  private loadDistricts() {
+    this.districts$ = this.settingsService.fetch2('districts')
   }
 
-  private findFarmer(id: number) {
+  private loadFarmers() {
+    this.farmers$ = this.farmerService.fetchFarmers()
+  }
+
+  private findFarm(id: number) {
     this.blockUi.start('Loading...')
-    this.farmerService.findFarmer(id)
+    this.farmerService.findFarm(id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(data => {
         this.blockUi.stop()
         this.form.patchValue(data)
-        this.form.patchValue({
-          dateOfBirth: new Date(data.dateOfBirth).toISOString().substring(0, 10)
-        })
       }, () => this.blockUi.stop())
   }
 

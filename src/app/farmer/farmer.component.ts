@@ -14,8 +14,8 @@ export class FarmerComponent implements OnInit {
 
   ngOnInit() {
     this.submenus = [
-      { label: 'Farmers', route: RouteNames.farmerList, icon: 'fa fa-folder', privilege: Privileges.CanViewFarmers },
-      { label: 'Farms', route: RouteNames.farmList, icon: 'fa fa-folder', privilege: Privileges.CanViewFarms },
+      { label: 'Farmers', route: RouteNames.farmerList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewFarmers },
+      { label: 'Farms', route: RouteNames.farmList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewFarms },
       { label: 'Farms Map', route: RouteNames.farmMap, icon: 'fa fa-map', privilege: Privileges.CanViewFarms }
     ]
   }
