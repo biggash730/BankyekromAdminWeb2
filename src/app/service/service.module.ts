@@ -6,28 +6,20 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 import { BlockUIModule } from 'ng-block-ui';
-import { FarmerRoutingModule } from './farmer-routing.module';
-import { FarmerComponent } from './farmer.component';
-import { FarmerListComponent } from './farmer-list/farmer-list.component';
-import { FarmerFormComponent } from './farmer-form/farmer-form.component';
-import { FarmerDetailsComponent } from './farmer-details/farmer-details.component';
-import { FarmListComponent } from './farm-list/farm-list.component';
-import { FarmFormComponent } from './farm-form/farm-form.component';
-import { FarmDetailsComponent } from './farm-details/farm-details.component';
-import { FarmsMapComponent } from './farms-map/farms-map.component';
+import { ServiceRoutingModule } from './service-routing.module';
+import { ServiceComponent } from './service.component';
+import { ServiceListComponent } from './service-list/service-list.component';
+import { ServiceFormComponent } from './service-form/service-form.component';
+import { ServiceDetailsComponent } from './service-details/service-details.component';
 import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
   declarations: [
-    FarmerComponent,
-    FarmerListComponent,
-    FarmerFormComponent,
-    FarmerDetailsComponent,
-    FarmListComponent,
-    FarmFormComponent,
-    FarmDetailsComponent,
-    FarmsMapComponent
+    ServiceComponent,
+    ServiceListComponent,
+    ServiceFormComponent,
+    ServiceDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -37,11 +29,11 @@ import { AgmCoreModule } from '@agm/core';
     ReactiveFormsModule,
     InternationalPhoneNumberModule,
     NgbTabsetModule,
-    FarmerRoutingModule,
+    ServiceRoutingModule,
     BlockUIModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDGIvGsTpPG12ioffl1t5dK3I9KfeCee1g'
     })
   ]
 })
-export class FarmerModule { }
+export class ServiceModule { }

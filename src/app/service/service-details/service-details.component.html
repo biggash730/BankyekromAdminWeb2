@@ -5,15 +5,15 @@
 </div>
 <hr>
 
-<div class="row" *ngIf="farmer$ | async as farmer">
+<div class="row" *ngIf="request$ | async as request">
     <div class="col-sm-12 col-md-10 offset-md-1">
         <div class="card">
             <div class="card-header" style="border-bottom: 3px solid green;">
-                <span>Registered Farms: {{farmer.farms.length}}</span>
+                <span>Registered Farms: {{request.farms.length}}</span>
                 <button type="button" class="btn btn-secondary btn-sm rounded-circle float-right" title="Close" (click)="closeForm()">
           <i class="fa fa-close"></i>
         </button>
-                <button type="button" class="btn btn-primary btn-sm rounded-circle float-right" title="Edit" (click)="editForm(farmer.id)" appAuthorize="CanManageFarmers">
+                <button type="button" class="btn btn-primary btn-sm rounded-circle float-right" title="Edit" (click)="editForm(request.id)" appAuthorize="CanManageRequests">
           <i class="fa fa-edit"></i>
         </button>
             </div>
@@ -21,48 +21,48 @@
                 <div class="row mb-3 mt-5">
                     <div class="col-sm-12 col-md-6">
                         <div>Name</div>
-                        <div class="font-weight-bold ml-2">{{farmer.name}}</div>
+                        <div class="font-weight-bold ml-2">{{request.name}}</div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div>Phone Number</div>
-                        <div class="font-weight-bold ml-2">{{farmer.phoneNumber}}</div>
+                        <div class="font-weight-bold ml-2">{{request.phoneNumber}}</div>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-6">
                         <div>Date of Birth</div>
-                        <div class="font-weight-bold ml-2">{{farmer.dateOfBirth | date:'mediumDate'}}</div>
+                        <div class="font-weight-bold ml-2">{{request.dateOfBirth | date:'mediumDate'}}</div>
                     </div>
 
                     <div class="col-sm-12 col-md-6">
                         <div>Gender</div>
-                        <div class="font-weight-bold ml-2">{{farmer.gender}}</div>
+                        <div class="font-weight-bold ml-2">{{request.gender}}</div>
                     </div>
                 </div>
                 <hr>
                 <div class="row  mb-3">
                     <div class="col-sm-12 col-md-6">
                         <div>Ghana Post GPS</div>
-                        <div class="font-weight-bold ml-2">{{farmer.ghanaPostGps}}</div>
+                        <div class="font-weight-bold ml-2">{{request.ghanaPostGps}}</div>
                     </div>
 
                     <div class="col-sm-12 col-md-6">
                         <div>Town</div>
-                        <div class="font-weight-bold ml-2">{{farmer.town}}</div>
+                        <div class="font-weight-bold ml-2">{{request.town}}</div>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12">
                         <div>Catchment Area / District / Region</div>
-                        <div class="font-weight-bold ml-2">{{farmer.area}}, {{farmer.district}}, {{farmer.region}}</div>
+                        <div class="font-weight-bold ml-2">{{request.area}}, {{request.district}}, {{request.region}}</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
                         <div>Residential Address</div>
-                        <div class="font-weight-bold ml-2">{{farmer.residentialAddress}}</div>
+                        <div class="font-weight-bold ml-2">{{request.residentialAddress}}</div>
                     </div>
                 </div>
                 <hr>

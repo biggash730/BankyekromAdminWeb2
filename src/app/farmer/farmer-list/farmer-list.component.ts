@@ -49,7 +49,7 @@ export class FarmerListComponent implements OnInit, OnDestroy {
   }
 
   openForm() {
-    this.router.navigateByUrl(RouteNames.farmForm);
+    this.router.navigateByUrl(RouteNames.farmerForm);
   }
 
   editForm(id: number) {

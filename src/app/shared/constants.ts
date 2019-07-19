@@ -30,6 +30,21 @@ export class RouteNames {
     static farmMap = 'farmsmap';
 
     static service = 'service';
+    static requestList = 'requests';
+    static requestForm = 'requests/form';
+    static requestFormEdit = 'requests/form/:id';
+    static requestDetails = 'requests/details';
+    static requestDetailsId = 'requests/details/:id';
+    static providerList = 'providers';
+    static providerForm = 'providers/form';
+    static providerFormEdit = 'providers/form/:id';
+    static providerDetails = 'providers/details';
+    static providerDetailsId = 'providers/details/:id';
+    static processorList = 'processors';
+    static processorForm = 'processors/form';
+    static processorFormEdit = 'processors/form/:id';
+    static processorDetails = 'processors/details';
+    static processorDetailsId = 'processors/details/:id';
 
 
 
@@ -113,6 +128,10 @@ export class Privileges {
     static CanManageRequests = 'CanManageRequests';
     static CanViewServices = 'CanViewServices';
     static CanManageServices = 'CanManageServices';
+    static CanViewServiceProviders = 'CanViewServiceProviders';
+    static CanManageServiceProviders = 'CanManageServiceProviders';
+    static CanViewProcessors = 'CanViewProcessors';
+    static CanManageProcessors = 'CanManageProcessors';
 
 
     static CanViewSubscribers = 'CanViewSubscribers';

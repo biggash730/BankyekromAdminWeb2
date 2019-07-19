@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseObject, Lookup } from 'src/app/shared/common-entities.model';
-import { Farmer, Farm, FarmersQuery, FarmsQuery} from './farmer.model';
+import { ServiceProvider, ServiceRequest, ServiceProvidersQuery, ServiceRequestsQuery, Processor, ProcessorsQuery} from './service.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FarmerService {
+export class ServiceRequestsService {
 
-  totalFarmers = 0
-  totalFarms = 0
+  totalServiceRequests = 0
+  totalServiceProviders = 0
+  totalProcessors = 0
 
   constructor(private http: HttpClient) { }
 
-  fetchFarmsByFamerId(farmerId: number) {
-    return this.http.get<ResponseObject<Lookup[]>>(`${environment.baseUrl}/farms/getfarmerfarms?farmerId=${farmerId}`)
+  fetchServiceRequests() {
+    return this.http.get<ResponseObject<ServiceRequest[]>>(`${environment.baseUrl}/servicerequests/adminget`)
       .pipe(
         map(res => {
           if (res.success) { return res.data }
@@ -24,8 +25,40 @@ export class FarmerService {
       )
   }
 
-  fetchFarmers() {
-    return this.http.get<ResponseObject<Farmer[]>>(`${environment.baseUrl}/farmers/adminget`)
+  queryServiceRequests(params: ServiceRequestsQuery) {
+    return this.http.post<ResponseObject<ServiceRequest[]>>(`${environment.baseUrl}/servicerequests/adminquery`, params)
+      .pipe(
+        map(res => {
+          if (res.success) {
+            this.totalServiceRequests = res.total
+            return res.data
+          }
+        })
+      )
+  }
+
+  findServiceRequest(id: number) {
+    return this.http.get<ResponseObject<ServiceRequest>>(`${environment.baseUrl}/servicerequests/get/${id}`)
+      .pipe(
+        map(res => {
+          if (res.success) {
+            return res.data
+          }
+        })
+      )
+  }
+
+  deleteServiceRequest(id: number) {
+    return this.http.delete<ResponseObject<ServiceRequest>>(`${environment.baseUrl}/servicerequests/delete/${id}`)
+  }
+
+  saveServiceRequest(params: ServiceRequest) {
+    if (params.id) { return this.http.put<ResponseObject<ServiceRequest>>(`${environment.baseUrl}/servicerequests/adminput`, params) }
+    return this.http.post<ResponseObject<ServiceRequest>>(`${environment.baseUrl}/servicerequests/adminpost`, params)
+  }
+
+  fetchServiceProviders() {
+    return this.http.get<ResponseObject<ServiceProvider[]>>(`${environment.baseUrl}/serviceproviders/adminget`)
       .pipe(
         map(res => {
           if (res.success) { return res.data }
@@ -33,20 +66,20 @@ export class FarmerService {
       )
   }
 
-  queryFarmers(params: FarmersQuery) {
-    return this.http.post<ResponseObject<Farmer[]>>(`${environment.baseUrl}/farmers/adminquery`, params)
+  queryServiceProviders(params: ServiceProvidersQuery) {
+    return this.http.post<ResponseObject<ServiceProvider[]>>(`${environment.baseUrl}/serviceproviders/adminquery`, params)
       .pipe(
         map(res => {
           if (res.success) {
-            this.totalFarmers = res.total
+            this.totalServiceProviders = res.total
             return res.data
           }
         })
       )
   }
 
-  findFarmer(id: number) {
-    return this.http.get<ResponseObject<Farmer>>(`${environment.baseUrl}/farmers/get/${id}`)
+  findServiceProvider(id: number) {
+    return this.http.get<ResponseObject<ServiceProvider>>(`${environment.baseUrl}/serviceproviders/get/${id}`)
       .pipe(
         map(res => {
           if (res.success) {
@@ -56,17 +89,17 @@ export class FarmerService {
       )
   }
 
-  deleteFarmer(id: number) {
-    return this.http.delete<ResponseObject<Farmer>>(`${environment.baseUrl}/farmers/delete/${id}`)
+  deleteServiceProvider(id: number) {
+    return this.http.delete<ResponseObject<ServiceProvider>>(`${environment.baseUrl}/serviceproviders/delete/${id}`)
   }
 
-  saveFarmer(params: Farmer) {
-    if (params.id) { return this.http.put<ResponseObject<Farmer>>(`${environment.baseUrl}/farmers/adminput`, params) }
-    return this.http.post<ResponseObject<Farmer>>(`${environment.baseUrl}/farmers/adminpost`, params)
+  saveServiceProvider(params: ServiceProvider) {
+    if (params.id) { return this.http.put<ResponseObject<ServiceProvider>>(`${environment.baseUrl}/serviceproviders/adminput`, params) }
+    return this.http.post<ResponseObject<ServiceProvider>>(`${environment.baseUrl}/serviceproviders/adminpost`, params)
   }
 
-  fetchFarms() {
-    return this.http.get<ResponseObject<Farm[]>>(`${environment.baseUrl}/farms/adminget`)
+  fetchProcessors() {
+    return this.http.get<ResponseObject<Processor[]>>(`${environment.baseUrl}/processors/adminget`)
       .pipe(
         map(res => {
           if (res.success) { return res.data }
@@ -74,32 +107,20 @@ export class FarmerService {
       )
   }
 
-  queryFarms(params: FarmsQuery) {
-    return this.http.post<ResponseObject<Farm[]>>(`${environment.baseUrl}/farms/adminquery`, params)
+  queryProcessors(params: ProcessorsQuery) {
+    return this.http.post<ResponseObject<Processor[]>>(`${environment.baseUrl}/processors/adminquery`, params)
       .pipe(
         map(res => {
           if (res.success) {
-            this.totalFarms = res.total
+            this.totalProcessors = res.total
             return res.data
           }
         })
       )
   }
 
-  queryMapFarms(params: FarmsQuery) {
-    return this.http.post<ResponseObject<Farm[]>>(`${environment.baseUrl}/farms/adminmapquery`, params)
-      .pipe(
-        map(res => {
-          if (res.success) {
-            this.totalFarms = res.total
-            return res.data
-          }
-        })
-      )
-  }
-
-  findFarm(id: number) {
-    return this.http.get<ResponseObject<Farm>>(`${environment.baseUrl}/farms/get/${id}`)
+  findProcessor(id: number) {
+    return this.http.get<ResponseObject<Processor>>(`${environment.baseUrl}/processors/get/${id}`)
       .pipe(
         map(res => {
           if (res.success) {
@@ -109,13 +130,13 @@ export class FarmerService {
       )
   }
 
-  deleteFarm(id: number) {
-    return this.http.delete<ResponseObject<Farm>>(`${environment.baseUrl}/farms/delete/${id}`)
+  deleteProcessor(id: number) {
+    return this.http.delete<ResponseObject<Processor>>(`${environment.baseUrl}/processors/delete/${id}`)
   }
 
-  saveFarm(params: Farm) {
-    if (params.id) { return this.http.put<ResponseObject<Farm>>(`${environment.baseUrl}/farms/adminput`, params) }
-    return this.http.post<ResponseObject<Farm>>(`${environment.baseUrl}/farms/adminpost`, params)
+  saveProcessor(params: Processor) {
+    if (params.id) { return this.http.put<ResponseObject<Processor>>(`${environment.baseUrl}/processors/adminput`, params) }
+    return this.http.post<ResponseObject<Processor>>(`${environment.baseUrl}/processors/adminpost`, params)
   }
 
 }

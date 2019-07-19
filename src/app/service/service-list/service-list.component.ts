@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteNames } from 'src/app/shared/constants';
-import { FarmerService } from '../shared/farmer.service';
+import { ServiceRequestsService } from '../shared/service.service';
 import { Observable, Subscription, Subject } from 'rxjs';
-import { Farmer, FarmersQuery } from '../shared/farmer.model';
+import { ServiceRequest, ServiceRequestsQuery } from '../shared/service.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { MessageDialog } from 'src/app/shared/message_helper';
@@ -17,30 +17,27 @@ import { SettingsService } from 'src/app/app-settings/settings/settings.service'
 })
 export class ServiceListComponent implements OnInit, OnDestroy {
 
-  farmers$: Observable<Farmer[]>;
+  requests$: Observable<ServiceRequest[]>;
   @BlockUI() blockUi: NgBlockUI;
   unsubscribe$ = new Subject<void>();
-  filter = <FarmersQuery>{};
+  filter = <ServiceRequestsQuery>{};
   name = ''
-  lastFilter: FarmersQuery;
+  lastFilter: ServiceRequestsQuery;
   pageSizes = [10, 20, 50, 100]
   totalRecords = 0;
   currentPage = 1;
   size = this.pageSizes[1];
-  gender = ['Female', 'Male']
-  areas$: Observable<any>
-  districts$: Observable<any>
-  regions$: Observable<any>
+  services$: Observable<any>
+  serviceProviders$: Observable<any>
 
   constructor(private router: Router,
-    private farmerService: FarmerService,
+    private serviceRequestsService: ServiceRequestsService,
     private settingsService: SettingsService) { }
 
   ngOnInit() {
-    this.getFarmers(<FarmersQuery>{});
-    this.loadAreas()
-    this.loadDistricts()
-    this.loadRegions()
+    this.getRequests(<ServiceRequestsQuery>{});
+    this.loadServices()
+    this.loadServiceProviders()
   }
 
   ngOnDestroy() {
@@ -49,47 +46,47 @@ export class ServiceListComponent implements OnInit, OnDestroy {
   }
 
   openForm() {
-    this.router.navigateByUrl(RouteNames.farmForm);
+    this.router.navigateByUrl(RouteNames.requestForm);
   }
 
   editForm(id: number) {
-    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmerForm}/${id}`);
+    this.router.navigateByUrl(`${RouteNames.service}/${RouteNames.requestForm}/${id}`);
   }
 
   delete(id: number) {
-    MessageDialog.confirm('Delete Farmer', 'Are you sure you want to delete this farmer?').then(confirm => {
+    MessageDialog.confirm('Delete Request', 'Are you sure you want to delete this request?').then(confirm => {
       if (confirm.value) {
         this.blockUi.start('Deleting...');
-        this.farmerService.deleteFarmer(id)
+        this.serviceRequestsService.deleteServiceRequest(id)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe(res => {
             this.blockUi.stop();
-            this.getFarmers(<FarmersQuery>{});
+            this.getRequests(<ServiceRequestsQuery>{});
           }, () => this.blockUi.stop());
       }
     });
   }
 
   view(id: number) {
-    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmerDetails}/${id}`);
+    this.router.navigateByUrl(`${RouteNames.service}/${RouteNames.requestDetails}/${id}`);
   }
 
   pageChanged(page: number) {
     this.currentPage = page;
     this.lastFilter.pager.page = page;
     this.blockUi.start('Loading...');
-    this.farmers$ = this.farmerService.queryFarmers(this.lastFilter).pipe(
+    this.requests$ = this.serviceRequestsService.queryServiceRequests(this.lastFilter).pipe(
       finalize(() => this.blockUi.stop())
     );
   }
 
-  getFarmers(filter: FarmersQuery) {
+  getRequests(filter: ServiceRequestsQuery) {
     filter.pager = filter.pager || { page: 1, size: this.size };
     this.lastFilter = Object.assign({}, filter);
     this.blockUi.start('Loading...');
-    this.farmers$ = this.farmerService.queryFarmers(filter).pipe(
+    this.requests$ = this.serviceRequestsService.queryServiceRequests(filter).pipe(
       finalize(() => {
-        this.totalRecords = this.farmerService.totalFarmers
+        this.totalRecords = this.serviceRequestsService.totalServiceRequests
         this.blockUi.stop()
       })
     );
@@ -97,26 +94,24 @@ export class ServiceListComponent implements OnInit, OnDestroy {
 
   pageSizeChangeEvent() {
     this.filter.pager = { page: 1, size: this.size }
-    this.getFarmers(this.filter)
+    this.getRequests(this.filter)
   }
 
   setStatusColor(status: string) {
     switch (status) {
-      case 'Active': return 'badge badge-success'
-      case 'Inactive': return 'badge badge-secondary'
-      default: return 'badge badge-danger'
+      case 'Pending': return 'badge badge-danger'
+      case 'Started': return 'badge badge-info'
+      case 'Completed': return 'badge badge-success'
+      default: return 'badge badge-default'
     }
   }
 
-  private loadAreas() {
-    this.areas$ = this.settingsService.fetch2('catchmentareas')
+  private loadServices() {
+    this.services$ = this.settingsService.fetch2('services')
   }
 
-  private loadDistricts() {
-    this.districts$ = this.settingsService.fetch2('districts')
+  private loadServiceProviders() {
+    this.serviceProviders$ = this.serviceRequestsService.fetchServiceProviders()
   }
 
-  private loadRegions() {
-    this.regions$ = this.settingsService.fetch2('regions')
-  }
 }

@@ -3,11 +3,11 @@ import { RouteNames, Privileges } from '../shared/constants';
 // import {} from 'googlemaps';
 
 @Component({
-  selector: 'app-farmer',
-  templateUrl: './farmer.component.html',
-  styleUrls: ['./farmer.component.scss']
+  selector: 'app-service',
+  templateUrl: './service.component.html',
+  styleUrls: ['./service.component.scss']
 })
-export class FarmerComponent implements OnInit {
+export class ServiceComponent implements OnInit {
 
   submenus: any
 
@@ -15,9 +15,9 @@ export class FarmerComponent implements OnInit {
 
   ngOnInit() {
     this.submenus = [
-      { label: 'Farmers', route: RouteNames.farmerList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewFarmers },
-      { label: 'Farms', route: RouteNames.farmList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewFarms },
-      { label: 'Farms Map', route: RouteNames.farmMap, icon: 'fa fa-map', privilege: Privileges.CanViewFarms }
+      { label: 'Service Requests', route: RouteNames.requestList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewRequests },
+      { label: 'Service Providers', route: RouteNames.providerList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewServiceProviders },
+      { label: 'Processors', route: RouteNames.processorList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewProcessors }
     ]
   }
 

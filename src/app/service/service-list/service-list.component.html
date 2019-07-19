@@ -20,7 +20,7 @@
                 </ng-select>
             </div>
         </filter>
-        <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageFarmers">New
+        <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageRequests">New
       Farmer</button>
     </div>
 </div>
@@ -57,8 +57,8 @@
                             <td>{{farmer.farms}}</td>
                             <td>
                                 <a class="pointer" (click)="view(farmer.id)"><i class="fa fa-eye"></i></a> &nbsp;
-                                <a class="pointer" (click)="editForm(farmer.id)" appAuthorize="CanManageFarmers"><i class="fa fa-edit"></i></a> &nbsp;
-                                <a class="pointer text-danger" (click)="delete(farmer.id)" appAuthorize="CanManageFarmers"><i class="fa fa-trash"></i></a>
+                                <a class="pointer" (click)="editForm(farmer.id)" appAuthorize="CanManageRequests"><i class="fa fa-edit"></i></a> &nbsp;
+                                <a class="pointer text-danger" (click)="delete(farmer.id)" appAuthorize="CanManageRequests"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     </tbody>

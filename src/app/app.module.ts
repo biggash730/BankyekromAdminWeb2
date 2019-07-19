@@ -19,6 +19,7 @@ import { AppSettingsModule } from './app-settings/app-settings.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ReportModule } from './report/report.module';
 import { FarmerModule } from './farmer/farmer.module';
+import { ServiceModule } from './service/service.module';
 
 import { SubscriberModule } from './subscriber/subscriber.module';
 import { ContentModule } from './content/content.module';
@@ -44,14 +45,17 @@ import { CampaignModule } from './campaign/campaign.module';
     AdminModule,
     ProfileModule,
     FarmerModule,
-    SubscriberModule,
-    ContentModule,
-    CampaignModule,
+    ServiceModule,
     AppSettingsModule,
     DashboardModule,
     ReportModule,
     CoreModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
+
+
+    SubscriberModule,
+    ContentModule,
+    CampaignModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},

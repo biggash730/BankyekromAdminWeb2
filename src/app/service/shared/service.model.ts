@@ -72,7 +72,7 @@ export interface Processor {
     ghanaPostGps: string
     district: any
 }
-export interface ProcessorQuery extends ModelQuery {
+export interface ProcessorsQuery extends ModelQuery {
     id: number
     contactPerson: string
     name: string

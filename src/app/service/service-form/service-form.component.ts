@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { Lookup } from 'src/app/shared/common-entities.model';
-import { FarmerService } from '../shared/farmer.service';
+import { ServiceRequestsService } from '../shared/service.service';
 import { ActivatedRoute, Router, Route } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { RouteNames } from 'src/app/shared/constants';
 import { MessageDialog } from 'src/app/shared/message_helper';
-import { Farmer } from '../shared/farmer.model';
+import { ServiceRequest } from '../shared/service.model';
 import { SettingsService } from 'src/app/app-settings/settings/settings.service';
 import { shareReplay, takeUntil, finalize } from 'rxjs/operators';
 
@@ -27,7 +27,7 @@ export class ServiceFormComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private farmerService: FarmerService,
+    private serviceRequestsService: ServiceRequestsService,
     private settingsService: SettingsService) { }
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class ServiceFormComponent implements OnInit, OnDestroy {
   save(formData: any) {
     const params = formData
     this.blockUi.start('Saving...')
-    this.farmerService.saveFarmer(formData)
+    this.serviceRequestsService.saveServiceRequest(formData)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(res => {
         this.blockUi.stop()
@@ -55,7 +55,7 @@ export class ServiceFormComponent implements OnInit, OnDestroy {
   }
 
   closeForm() {
-    this.router.navigateByUrl(`${RouteNames.farmer}/${RouteNames.farmerList}`)
+    this.router.navigateByUrl(`${RouteNames.service}/${RouteNames.requestList}`)
   }
 
   get id() { return this.form.get('id') }
@@ -92,13 +92,13 @@ export class ServiceFormComponent implements OnInit, OnDestroy {
 
   private findFarmer(id: number) {
     this.blockUi.start('Loading...')
-    this.farmerService.findFarmer(id)
+    this.serviceRequestsService.findServiceRequest(id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(data => {
         this.blockUi.stop()
         this.form.patchValue(data)
         this.form.patchValue({
-          dateOfBirth: new Date(data.dateOfBirth).toISOString().substring(0, 10)
+          serviceDate: new Date(data.serviceDate).toISOString().substring(0, 10)
         })
       }, () => this.blockUi.stop())
   }
