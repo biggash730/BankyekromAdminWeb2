@@ -1,0 +1,99 @@
+<div class="page-header">
+    <div class="p-3">
+        <span class="p-2 title">Map of Registered Partners</span>
+    </div>
+</div>
+<hr>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-md-3">
+            <form [formGroup]="form">
+                <div class="card">
+                    <div class="card-body fixed-height">
+                        <div class="form-group">
+                            <label>*Number of records to load</label>
+                            <input type="number" class="form-control" formControlName="size" [class.is-invalid]="size.dirty && size.invalid">
+                            <div class="invalid-feedback" *ngIf="size.dirty && size.invalid">
+                                <div *ngIf="size.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Partner Name</label>
+                            <input type="text" class="form-control" formControlName="name" [class.is-invalid]="name.dirty && name.invalid">
+                            <div class="invalid-feedback" *ngIf="name.dirty && name.invalid">
+                                <div *ngIf="name.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Person</label>
+                            <input type="text" class="form-control" formControlName="contactPerson" [class.is-invalid]="contactPerson.dirty && contactPerson.invalid">
+                            <div class="invalid-feedback" *ngIf="contactPerson.dirty && contactPerson.invalid">
+                                <div *ngIf="contactPerson.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" formControlName="phoneNumber" [class.is-invalid]="phoneNumber.dirty && phoneNumber.invalid">
+                            <div class="invalid-feedback" *ngIf="phoneNumber.dirty && phoneNumber.invalid">
+                                <div *ngIf="phoneNumber.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Town</label>
+                            <input type="text" class="form-control" formControlName="town" [class.is-invalid]="town.dirty && town.invalid">
+                            <div class="invalid-feedback" *ngIf="town.dirty && town.invalid">
+                                <div *ngIf="town.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>District</label>
+                            <select class="form-control" formControlName="districtId" [class.is-invalid]="districtId.dirty && districtId.invalid">
+                                <option *ngFor="let d of districts$ | async" [ngValue]="d.id">{{d.name}}</option>
+                              </select>
+                            <div class="invalid-feedback" *ngIf="districtId.dirty && districtId.invalid">
+                                <div *ngIf="districtId.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Region</label>
+                            <select class="form-control" formControlName="regionId" [class.is-invalid]="regionId.dirty && regionId.invalid">
+                                    <option *ngFor="let d of regions$ | async" [ngValue]="d.id">{{d.name}}</option>
+                                  </select>
+                            <div class="invalid-feedback" *ngIf="regionId.dirty && regionId.invalid">
+                                <div *ngIf="regionId.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-block" type="submit" [validate-form]="form" (valid)="getFarms(form.value)">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-9">
+            <div class="card">
+                <agm-map [latitude]="lat" [longitude]="lng">
+                    <agm-marker [latitude]="lat" [longitude]="lng" [label]="'i+1'">
+                        <agm-info-window [disableAutoPan]="true">
+                            Hi, this is the content of the <strong>info window</strong>
+                        </agm-info-window>
+                    </agm-marker>
+                </agm-map>
+            </div>
+        </div>
+    </div>
+</div>

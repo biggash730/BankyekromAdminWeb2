@@ -45,6 +45,7 @@ export class RouteNames {
     static processorFormEdit = 'processors/form/:id';
     static processorDetails = 'processors/details';
     static processorDetailsId = 'processors/details/:id';
+    static partnerMap = 'partnersmap';
 
 
 

@@ -13,6 +13,7 @@ export class ServiceRequestsService {
   totalServiceRequests = 0
   totalServiceProviders = 0
   totalProcessors = 0
+  totalPartners = 0
 
   constructor(private http: HttpClient) { }
 
@@ -141,6 +142,18 @@ export class ServiceRequestsService {
   saveProcessor(params: Processor) {
     if (params.id) { return this.http.put<ResponseObject<Processor>>(`${environment.baseUrl}/processors/put`, params) }
     return this.http.post<ResponseObject<Processor>>(`${environment.baseUrl}/processors/post`, params)
+  }
+
+  queryMapPartners(params: any) {
+    return this.http.post<ResponseObject<any[]>>(`${environment.baseUrl}/processors/querymappartners`, params)
+      .pipe(
+        map(res => {
+          if (res.success) {
+            this.totalPartners = res.total
+            return res.data
+          }
+        })
+      )
   }
 
 }

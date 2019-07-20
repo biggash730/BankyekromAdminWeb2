@@ -12,6 +12,7 @@ import { ServiceProviderDetailsComponent } from './provider-details/provider-det
 import { ProcessorListComponent } from './processor-list/processor-list.component';
 import { ProcessorFormComponent } from './processor-form/processor-form.component';
 import { ProcessorDetailsComponent } from './processor-details/processor-details.component';
+import { PartnersMapComponent } from './partners-map/partners-map.component';
 
 const routes: Routes = [
   {
@@ -84,11 +85,11 @@ const routes: Routes = [
         component: ProcessorDetailsComponent,
         canActivate: [AuthGuard]
       },
-      // {
-      //   path: RouteNames.farmMap,
-      //   component: FarmsMapComponent,
-      //   canActivate: [AuthGuard]
-      // }
+      {
+        path: RouteNames.partnerMap,
+        component: PartnersMapComponent,
+        canActivate: [AuthGuard]
+      }
     ]
   }
 ];

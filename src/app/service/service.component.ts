@@ -17,7 +17,8 @@ export class ServiceComponent implements OnInit {
     this.submenus = [
       { label: 'Service Requests', route: RouteNames.requestList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewRequests },
       { label: 'Service Providers', route: RouteNames.providerList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewServiceProviders },
-      { label: 'Processors', route: RouteNames.processorList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewProcessors }
+      { label: 'Processors', route: RouteNames.processorList, icon: 'fa fa-external-link-square', privilege: Privileges.CanViewProcessors },
+      { label: 'Partners Map', route: RouteNames.partnerMap, icon: 'fa fa-map', privilege: Privileges.CanViewProcessors }
     ]
   }
 

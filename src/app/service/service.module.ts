@@ -17,6 +17,7 @@ import { ServiceProviderDetailsComponent } from './provider-details/provider-det
 import { ProcessorListComponent } from './processor-list/processor-list.component';
 import { ProcessorFormComponent } from './processor-form/processor-form.component';
 import { ProcessorDetailsComponent } from './processor-details/processor-details.component';
+import { PartnersMapComponent } from './partners-map/partners-map.component';
 import { AgmCoreModule } from '@agm/core';
 
 
@@ -31,7 +32,8 @@ import { AgmCoreModule } from '@agm/core';
     ServiceProviderDetailsComponent,
     ProcessorListComponent,
     ProcessorFormComponent,
-    ProcessorDetailsComponent
+    ProcessorDetailsComponent,
+    PartnersMapComponent
   ],
   imports: [
     CommonModule,
