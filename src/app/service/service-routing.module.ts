@@ -9,6 +9,9 @@ import { ServiceDetailsComponent } from './service-details/service-details.compo
 import { ServiceProviderListComponent } from './provider-list/provider-list.component';
 import { ServiceProviderFormComponent } from './provider-form/provider-form.component';
 import { ServiceProviderDetailsComponent } from './provider-details/provider-details.component';
+import { ProcessorListComponent } from './processor-list/processor-list.component';
+import { ProcessorFormComponent } from './processor-form/processor-form.component';
+import { ProcessorDetailsComponent } from './processor-details/processor-details.component';
 
 const routes: Routes = [
   {
@@ -59,6 +62,26 @@ const routes: Routes = [
       {
         path: RouteNames.providerDetailsId,
         component: ServiceProviderDetailsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: RouteNames.processorList,
+        component: ProcessorListComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: RouteNames.processorForm,
+        component: ProcessorFormComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: RouteNames.processorFormEdit,
+        component: ProcessorFormComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: RouteNames.processorDetailsId,
+        component: ProcessorDetailsComponent,
         canActivate: [AuthGuard]
       },
       // {

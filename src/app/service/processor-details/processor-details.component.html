@@ -1,19 +1,19 @@
 <div class="row">
     <div class="col-sm-12">
-        <div class="p-2 text-uppercase form-header-text">Service Provider Details</div>
+        <div class="p-2 text-uppercase form-header-text">Processor Details</div>
     </div>
 </div>
 <hr>
 
-<div class="row" *ngIf="provider$ | async as provider">
+<div class="row" *ngIf="processor$ | async as processor">
     <div class="col-sm-12 col-md-10 offset-md-1">
         <div class="card mb-5">
             <div class="card-header" style="border-bottom: 3px solid green;">
-                <span>Registered On: {{provider.createdAt | date:'mediumDate'}}</span>
+                <span>Registered On: {{processor.createdAt | date:'mediumDate'}}</span>
                 <button type="button" class="btn btn-secondary btn-sm rounded-circle float-right" title="Close" (click)="closeForm()">
           <i class="fa fa-close"></i>
         </button>
-                <button type="button" class="btn btn-primary btn-sm rounded-circle float-right" title="Edit" (click)="editForm(provider.id)" appAuthorize="CanManageServiceProviders">
+                <button type="button" class="btn btn-primary btn-sm rounded-circle float-right" title="Edit" (click)="editForm(processor.id)" appAuthorize="CanManageProcessors">
           <i class="fa fa-edit"></i>
         </button>
             </div>
@@ -21,51 +21,46 @@
                 <div class="row mb-3 mt-2">
                     <div class="col-sm-12 col-md-12">
                         <div>Service Provider Name</div>
-                        <div class="font-weight-bold ml-2">{{provider.name}}</div>
+                        <div class="font-weight-bold ml-2">{{processor.name}}</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-4">
                         <div>Contact Person</div>
-                        <div class="font-weight-bold ml-2">{{provider.contactPerson}}</div>
+                        <div class="font-weight-bold ml-2">{{processor.contactPerson}}</div>
                     </div>
                     <div class="col-sm-12 col-md-4">
                         <div>Phone Number</div>
-                        <div class="font-weight-bold ml-2">{{provider.phoneNumber}}</div>
+                        <div class="font-weight-bold ml-2">{{processor.phoneNumber}}</div>
                     </div>
                     <div class="col-sm-12 col-md-4">
                         <div>Email</div>
-                        <div class="font-weight-bold ml-2">{{provider.email}}</div>
+                        <div class="font-weight-bold ml-2">{{processor.email}}</div>
                     </div>
                 </div>
                 <hr>
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-4">
                         <div>Ghana Post GPS</div>
-                        <div class="font-weight-bold ml-2">{{provider.ghanaPostGps}}</div>
+                        <div class="font-weight-bold ml-2">{{processor.ghanaPostGps}}</div>
                     </div>
                     <div class="col-sm-12 col-md-8">
                         <div>Town / District / Region</div>
-                        <div class="font-weight-bold ml-2">{{provider.town}}, {{provider.district}}, {{provider.region}}</div>
+                        <div class="font-weight-bold ml-2">{{processor.town}}, {{processor.district}}, {{processor.region}}</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12">
                         <div>Geolocation(Lat/Lng)</div>
-                        <div class="font-weight-bold ml-2">{{provider.latitude}}, {{provider.longitude}}</div>
+                        <div class="font-weight-bold ml-2">{{processor.latitude}}, {{processor.longitude}}</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12">
                         <div>Address</div>
-                        <div class="font-weight-bold ml-2">{{provider.address}}</div>
+                        <div class="font-weight-bold ml-2">{{processor.address}}</div>
                     </div>
                 </div>
-                <hr>
-                <h5 class="card-title">Services</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item" *ngFor="let serv of provider.services; let i = index">{{i+1}}. {{serv.service}}</li>
-                </ul>
             </div>
         </div>
     </div>

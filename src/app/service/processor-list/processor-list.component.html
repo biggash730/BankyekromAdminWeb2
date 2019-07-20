@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-sm-12">
+        <filter class="float-left" placeholder="Search by name" label="name" [model]="name" (search)="getProviders($event)" [filter]="filter">
+            <div class="form-group">
+                <input type="text" class="form-control" name="phone" placeholder="Phone Number" [(ngModel)]="filter.phoneNumber">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="filter.email">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="town" placeholder="Town" [(ngModel)]="filter.town">
+            </div>
+            <div class="form-group">
+                <ng-select [items]="districts$ | async" bindLabel="name" bindValue="id" placeholder="Select District" [clearable]="true" [(ngModel)]="filter.districtId">
+                </ng-select>
+            </div>
+            <div class="form-group">
+                <ng-select [items]="regions$ | async" bindLabel="name" bindValue="id" placeholder="Select Region" [clearable]="true" [(ngModel)]="filter.regionId">
+                </ng-select>
+            </div>
+        </filter>
+        <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageProcessors">New
+      Processor</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead>
+                        <tr style="border-bottom: 3px solid green;">
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Contact Person</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Town</th>
+                            <th>District</th>
+                            <th>Region</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let processor of processors$ | async; let i = index">
+                            <td>{{((currentPage - 1) * size) + i + 1}}</td>
+                            <td>{{processor.name}}</td>
+                            <td>{{processor.contactPerson}}</td>
+                            <td>{{processor.phoneNumber}}</td>
+                            <td>{{processor.email}}</td>
+                            <td>{{processor.town}}</td>
+                            <td>{{processor.district}}</td>
+                            <td>{{processor.region}}</td>
+                            <td>
+                                <a class="pointer" (click)="view(processor.id)"><i class="fa fa-eye"></i></a> &nbsp;
+                                <a class="pointer" (click)="editForm(processor.id)" appAuthorize="CanManageProcessors"><i class="fa fa-edit"></i></a> &nbsp;
+                                <a class="pointer text-danger" (click)="delete(processor.id)" appAuthorize="CanManageProcessors"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-3">
+        <div class="input-group mb-3 float-left">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Records per page</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="size" (ngModelChange)="pageSizeChangeEvent()">
+        <option *ngFor="let size of pageSizes" [ngValue]="size">{{size}}</option>
+      </select>
+        </div>
+    </div>
+    <div class="col">
+        <ngb-pagination class="float-right" [(page)]="currentPage" [pageSize]="size" [collectionSize]="totalRecords" [maxSize]="5" (pageChange)="pageChanged($event)"></ngb-pagination>
+    </div>
+</div>

@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-body mx-md-4">
                     <div class="card-title text-uppercase text-muted ml-md-n4">
-                        <span class="h5">Service Provider Form</span>
+                        <span class="h5">Processor Form</span>
                         <button type="button" class="btn btn-light border border-dark float-right" (click)="closeForm()">
               <i class="fa fa-arrow-left"></i> Back
             </button>
@@ -12,7 +12,7 @@
                     <br>
                     <div class="row">
                         <div class="form-group col-sm-12 col-md-12">
-                            <label>Service Provider Name</label>
+                            <label>Processor Name</label>
                             <input type="text" class="form-control" formControlName="name" [class.is-invalid]="name.dirty && name.invalid">
                             <div class="invalid-feedback" *ngIf="name.dirty && name.invalid">
                                 <div *ngIf="name.errors.required">
@@ -106,22 +106,6 @@
                         <div class="form-group  col-sm-12 col-md-12">
                             <label>Address</label>
                             <textarea rows="2" class="form-control" formControlName="address"></textarea>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="form-group col-sm-12 col-md-12">
-                            <label>Services</label>
-                            <select class="form-control" multiple formControlName="serviceIds" [class.is-invalid]="serviceIds.dirty && serviceIds.invalid">
-                                        <option *ngFor="let serv of services$ | async" [ngValue]="serv.id">
-                                         {{ serv.name }}
-                                        </option>
-                                      </select>
-                            <div class="invalid-feedback" *ngIf="serviceIds.dirty && serviceIds.invalid">
-                                <div *ngIf="serviceIds.errors.required">
-                                    This field is required
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
