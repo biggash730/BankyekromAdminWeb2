@@ -11,6 +11,9 @@ import { ServiceComponent } from './service.component';
 import { ServiceListComponent } from './service-list/service-list.component';
 import { ServiceFormComponent } from './service-form/service-form.component';
 import { ServiceDetailsComponent } from './service-details/service-details.component';
+import { ServiceProviderListComponent } from './provider-list/provider-list.component';
+import { ServiceProviderFormComponent } from './provider-form/provider-form.component';
+import { ServiceProviderDetailsComponent } from './provider-details/provider-details.component';
 import { AgmCoreModule } from '@agm/core';
 
 
@@ -19,7 +22,10 @@ import { AgmCoreModule } from '@agm/core';
     ServiceComponent,
     ServiceListComponent,
     ServiceFormComponent,
-    ServiceDetailsComponent
+    ServiceDetailsComponent,
+    ServiceProviderListComponent,
+    ServiceProviderFormComponent,
+    ServiceProviderDetailsComponent
   ],
   imports: [
     CommonModule,

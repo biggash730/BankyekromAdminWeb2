@@ -6,6 +6,9 @@ import { AuthGuard } from '../auth-guard.service';
 import { ServiceListComponent } from './service-list/service-list.component';
 import { ServiceFormComponent } from './service-form/service-form.component';
 import { ServiceDetailsComponent } from './service-details/service-details.component';
+import { ServiceProviderListComponent } from './provider-list/provider-list.component';
+import { ServiceProviderFormComponent } from './provider-form/provider-form.component';
+import { ServiceProviderDetailsComponent } from './provider-details/provider-details.component';
 
 const routes: Routes = [
   {
@@ -37,28 +40,27 @@ const routes: Routes = [
         path: RouteNames.requestDetailsId,
         component: ServiceDetailsComponent,
         canActivate: [AuthGuard]
-      }
-      // },
-      // {
-      //   path: RouteNames.farmList,
-      //   component: FarmListComponent,
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: RouteNames.farmForm,
-      //   component: FarmFormComponent,
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: RouteNames.farmFormEdit,
-      //   component: FarmFormComponent,
-      //   canActivate: [AuthGuard]
-      // },
-      // {
-      //   path: RouteNames.farmDetailsId,
-      //   component: FarmDetailsComponent,
-      //   canActivate: [AuthGuard]
-      // },
+      },
+      {
+        path: RouteNames.providerList,
+        component: ServiceProviderListComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: RouteNames.providerForm,
+        component: ServiceProviderFormComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: RouteNames.providerFormEdit,
+        component: ServiceProviderFormComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: RouteNames.providerDetailsId,
+        component: ServiceProviderDetailsComponent,
+        canActivate: [AuthGuard]
+      },
       // {
       //   path: RouteNames.farmMap,
       //   component: FarmsMapComponent,
