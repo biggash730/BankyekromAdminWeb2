@@ -28,7 +28,10 @@ export class ServiceListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   size = this.pageSizes[1];
   services$: Observable<any>
+  districts$: Observable<any>
+  regions$: Observable<any>
   serviceProviders$: Observable<any>
+  statuses = [{name: 'Pending'}, {name: 'Cancelled'}, {name: 'Completed'}, {name: 'Started'}, {name: 'Accepted'}]
 
   constructor(private router: Router,
     private serviceRequestsService: ServiceRequestsService,
@@ -37,6 +40,8 @@ export class ServiceListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getRequests(<ServiceRequestsQuery>{});
     this.loadServices()
+    this.loadRegions()
+    this.loadDistricts()
     this.loadServiceProviders()
   }
 
@@ -53,11 +58,11 @@ export class ServiceListComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`${RouteNames.service}/${RouteNames.requestForm}/${id}`);
   }
 
-  delete(id: number) {
-    MessageDialog.confirm('Delete Request', 'Are you sure you want to delete this request?').then(confirm => {
+  cancel(id: number) {
+    MessageDialog.confirm('Cancel Request', 'Are you sure you want to cancel this request?').then(confirm => {
       if (confirm.value) {
-        this.blockUi.start('Deleting...');
-        this.serviceRequestsService.deleteServiceRequest(id)
+        this.blockUi.start('Cancelling...');
+        this.serviceRequestsService.cancelServiceRequest(id)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe(res => {
             this.blockUi.stop();
@@ -99,8 +104,9 @@ export class ServiceListComponent implements OnInit, OnDestroy {
 
   setStatusColor(status: string) {
     switch (status) {
-      case 'Pending': return 'badge badge-danger'
+      case 'Pending': return 'badge badge-primary'
       case 'Started': return 'badge badge-info'
+      case 'Cancelled': return 'badge badge-danger'
       case 'Completed': return 'badge badge-success'
       default: return 'badge badge-default'
     }
@@ -108,6 +114,14 @@ export class ServiceListComponent implements OnInit, OnDestroy {
 
   private loadServices() {
     this.services$ = this.settingsService.fetch2('services')
+  }
+
+  private loadRegions() {
+    this.regions$ = this.settingsService.fetch2('regions')
+  }
+
+  private loadDistricts() {
+    this.districts$ = this.settingsService.fetch2('districts')
   }
 
   private loadServiceProviders() {

@@ -7,7 +7,7 @@
 
 <div class="row" *ngIf="farm$ | async as farm">
     <div class="col-sm-12 col-md-10 offset-md-1">
-        <div class="card">
+        <div class="card mb-5">
             <div class="card-header" style="border-bottom: 3px solid green;">
                 <span>Farm Code: {{farm.code}}</span>
                 <button type="button" class="btn btn-secondary btn-sm rounded-circle float-right" title="Close" (click)="closeForm()">

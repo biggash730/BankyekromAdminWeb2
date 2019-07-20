@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Observable, Subscription, Subject } from 'rxjs';
 import { Lookup } from 'src/app/shared/common-entities.model';
 import { ServiceRequestsService } from '../shared/service.service';
+import { FarmerService } from '../../farmer/shared/farmer.service';
 import { ActivatedRoute, Router, Route } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { RouteNames } from 'src/app/shared/constants';
@@ -19,22 +20,29 @@ import { shareReplay, takeUntil, finalize } from 'rxjs/operators';
 export class ServiceFormComponent implements OnInit, OnDestroy {
 
   form: FormGroup
-  areas$: Observable<any[]>
+  services$: Observable<any[]>
+  serviceProviders$: Observable<any[]>
+  farms$: Observable<any[]>
   unsubscribe$ = new Subject<void>();
   @BlockUI() blockUi: NgBlockUI
-  loadingAreas: boolean
+  loadingServices: boolean
+  loadingServiceProviders: boolean
+  loadingFarms: boolean
 
   constructor(private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private serviceRequestsService: ServiceRequestsService,
-    private settingsService: SettingsService) { }
+    private settingsService: SettingsService,
+    private farmerService: FarmerService) { }
 
   ngOnInit() {
     this.setupForm()
-    this.loadAreas()
+    this.loadServices()
+    this.loadServiceProviders()
+    this.loadFarms()
     const id = +this.activatedRoute.snapshot.paramMap.get('id')
-    if (id) { this.findFarmer(id) }
+    if (id) { this.findRequest(id) }
     this.disableControls()
   }
 
@@ -59,26 +67,22 @@ export class ServiceFormComponent implements OnInit, OnDestroy {
   }
 
   get id() { return this.form.get('id') }
-  get phoneNumber() { return this.form.get('phoneNumber') }
-  get name() { return this.form.get('name') }
-  get areaId() { return this.form.get('areaId') }
-  get gender() { return this.form.get('gender') }
-  get residentialAddress() { return this.form.get('residentialAddress') }
-  get town() { return this.form.get('town') }
-  get ghanaPostGps() { return this.form.get('ghanaPostGps') }
-  get dateOfBirth() { return this.form.get('dateOfBirth') }
+  get farmId() { return this.form.get('farmId') }
+  get notes() { return this.form.get('notes') }
+  get charge() { return this.form.get('charge') }
+  get serviceId() { return this.form.get('serviceId') }
+  get assignedToId() { return this.form.get('assignedToId') }
+  get serviceDate() { return this.form.get('serviceDate') }
 
   private setupForm() {
     this.form = this.fb.group({
       id: new FormControl(''),
-      phoneNumber: new FormControl('', Validators.required),
-      name: new FormControl('', Validators.required),
-      areaId: new FormControl(null, Validators.required),
-      gender: new FormControl('Male', Validators.required),
-      residentialAddress: new FormControl(''),
-      town: new FormControl(''),
-      ghanaPostGps: new FormControl(''),
-      dateOfBirth: new FormControl(null),
+      farmId: new FormControl(null, Validators.required),
+      serviceId: new FormControl(null, Validators.required),
+      assignedToId: new FormControl(null),
+      serviceDate: new FormControl(null, Validators.required),
+      notes: new FormControl(''),
+      charge: new FormControl(0),
       createdAt: new FormControl(null),
       createdBy: new FormControl(null),
       modifiedAt: new FormControl(null),
@@ -86,11 +90,19 @@ export class ServiceFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  private loadAreas() {
-    this.areas$ = this.settingsService.fetch2('catchmentareas')
+  private loadServices() {
+    this.services$ = this.settingsService.fetch2('services')
   }
 
-  private findFarmer(id: number) {
+  private loadFarms() {
+    this.farms$ = this.farmerService.fetchFarms()
+  }
+
+  private loadServiceProviders() {
+    this.serviceProviders$ = this.serviceRequestsService.fetchServiceProviders()
+  }
+
+  private findRequest(id: number) {
     this.blockUi.start('Loading...')
     this.serviceRequestsService.findServiceRequest(id)
       .pipe(takeUntil(this.unsubscribe$))

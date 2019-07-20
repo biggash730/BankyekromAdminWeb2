@@ -52,13 +52,17 @@ export class ServiceRequestsService {
     return this.http.delete<ResponseObject<ServiceRequest>>(`${environment.baseUrl}/servicerequests/delete/${id}`)
   }
 
+  cancelServiceRequest(id: number) {
+    return this.http.get<ResponseObject<ServiceRequest>>(`${environment.baseUrl}/servicerequests/cancel?id=${id}`)
+  }
+
   saveServiceRequest(params: ServiceRequest) {
     if (params.id) { return this.http.put<ResponseObject<ServiceRequest>>(`${environment.baseUrl}/servicerequests/adminput`, params) }
     return this.http.post<ResponseObject<ServiceRequest>>(`${environment.baseUrl}/servicerequests/adminpost`, params)
   }
 
   fetchServiceProviders() {
-    return this.http.get<ResponseObject<ServiceProvider[]>>(`${environment.baseUrl}/serviceproviders/adminget`)
+    return this.http.get<ResponseObject<ServiceProvider[]>>(`${environment.baseUrl}/serviceproviders/get`)
       .pipe(
         map(res => {
           if (res.success) { return res.data }
@@ -67,7 +71,7 @@ export class ServiceRequestsService {
   }
 
   queryServiceProviders(params: ServiceProvidersQuery) {
-    return this.http.post<ResponseObject<ServiceProvider[]>>(`${environment.baseUrl}/serviceproviders/adminquery`, params)
+    return this.http.post<ResponseObject<ServiceProvider[]>>(`${environment.baseUrl}/serviceproviders/query`, params)
       .pipe(
         map(res => {
           if (res.success) {
@@ -94,12 +98,12 @@ export class ServiceRequestsService {
   }
 
   saveServiceProvider(params: ServiceProvider) {
-    if (params.id) { return this.http.put<ResponseObject<ServiceProvider>>(`${environment.baseUrl}/serviceproviders/adminput`, params) }
-    return this.http.post<ResponseObject<ServiceProvider>>(`${environment.baseUrl}/serviceproviders/adminpost`, params)
+    if (params.id) { return this.http.put<ResponseObject<ServiceProvider>>(`${environment.baseUrl}/serviceproviders/put`, params) }
+    return this.http.post<ResponseObject<ServiceProvider>>(`${environment.baseUrl}/serviceproviders/post`, params)
   }
 
   fetchProcessors() {
-    return this.http.get<ResponseObject<Processor[]>>(`${environment.baseUrl}/processors/adminget`)
+    return this.http.get<ResponseObject<Processor[]>>(`${environment.baseUrl}/processors/get`)
       .pipe(
         map(res => {
           if (res.success) { return res.data }
@@ -108,7 +112,7 @@ export class ServiceRequestsService {
   }
 
   queryProcessors(params: ProcessorsQuery) {
-    return this.http.post<ResponseObject<Processor[]>>(`${environment.baseUrl}/processors/adminquery`, params)
+    return this.http.post<ResponseObject<Processor[]>>(`${environment.baseUrl}/processors/query`, params)
       .pipe(
         map(res => {
           if (res.success) {
@@ -135,8 +139,8 @@ export class ServiceRequestsService {
   }
 
   saveProcessor(params: Processor) {
-    if (params.id) { return this.http.put<ResponseObject<Processor>>(`${environment.baseUrl}/processors/adminput`, params) }
-    return this.http.post<ResponseObject<Processor>>(`${environment.baseUrl}/processors/adminpost`, params)
+    if (params.id) { return this.http.put<ResponseObject<Processor>>(`${environment.baseUrl}/processors/put`, params) }
+    return this.http.post<ResponseObject<Processor>>(`${environment.baseUrl}/processors/post`, params)
   }
 
 }

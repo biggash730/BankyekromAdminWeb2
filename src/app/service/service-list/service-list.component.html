@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <filter class="float-left" placeholder="Search by name" label="name" [model]="name" (search)="getFarmers($event)" [filter]="filter">
+        <filter class="float-left" placeholder="Search by farm code" label="code" [model]="code" (search)="getRequests($event)" [filter]="filter">
             <div class="form-group">
                 <input type="text" class="form-control" name="phone" placeholder="Phone Number" [(ngModel)]="filter.phoneNumber">
             </div>
@@ -8,7 +8,7 @@
                 <input type="text" class="form-control" name="town" placeholder="Town" [(ngModel)]="filter.town">
             </div>
             <div class="form-group">
-                <ng-select [items]="areas$ | async" bindLabel="name" bindValue="id" placeholder="Select Catchment Area" [clearable]="true" [(ngModel)]="filter.areaId">
+                <ng-select [items]="services$ | async" bindLabel="name" bindValue="id" placeholder="Select Service" [clearable]="true" [(ngModel)]="filter.serviceId">
                 </ng-select>
             </div>
             <div class="form-group">
@@ -19,9 +19,13 @@
                 <ng-select [items]="regions$ | async" bindLabel="name" bindValue="id" placeholder="Select Region" [clearable]="true" [(ngModel)]="filter.regionId">
                 </ng-select>
             </div>
+            <div class="form-group">
+                <ng-select [items]="statuses" bindLabel="name" bindValue="name" placeholder="Status" [clearable]="true" [(ngModel)]="filter.status">
+                </ng-select>
+            </div>
         </filter>
         <button type="button" class="btn btn-primary-custom border border-dark float-right" routerLink="form" appAuthorize="CanManageRequests">New
-      Farmer</button>
+      Service Request</button>
     </div>
 </div>
 <hr>
@@ -33,32 +37,34 @@
                     <thead>
                         <tr style="border-bottom: 3px solid green;">
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Gender</th>
+                            <th>Service Date</th>
+                            <th>Service</th>
+                            <th>Farm Code</th>
+                            <th>Farmer</th>
+                            <th>Phone Number</th>
                             <th>Town</th>
-                            <th>Catchment Area</th>
                             <th>District</th>
                             <th>Region</th>
-                            <th>Farms</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let farmer of farmers$ | async; let i = index">
+                        <tr *ngFor="let request of requests$ | async; let i = index">
                             <td>{{((currentPage - 1) * size) + i + 1}}</td>
-                            <td>{{farmer.name}}</td>
-                            <td>{{farmer.phoneNumber}}</td>
-                            <td>{{farmer.gender}}</td>
-                            <td>{{farmer.town}}</td>
-                            <td>{{farmer.area}}</td>
-                            <td>{{farmer.district}}</td>
-                            <td>{{farmer.region}}</td>
-                            <td>{{farmer.farms}}</td>
+                            <td>{{request.serviceDate | date:'mediumDate'}}</td>
+                            <td>{{request.service}}</td>
+                            <td>{{request.farmCode}}</td>
+                            <td>{{request.farmer}}</td>
+                            <td>{{request.phoneNumber}}</td>
+                            <td>{{request.town}}</td>
+                            <td>{{request.district}}</td>
+                            <td>{{request.region}}</td>
+                            <td><span [ngClass]="setStatusColor(request.status)">{{request.status}}</span></td>
                             <td>
-                                <a class="pointer" (click)="view(farmer.id)"><i class="fa fa-eye"></i></a> &nbsp;
-                                <a class="pointer" (click)="editForm(farmer.id)" appAuthorize="CanManageRequests"><i class="fa fa-edit"></i></a> &nbsp;
-                                <a class="pointer text-danger" (click)="delete(farmer.id)" appAuthorize="CanManageRequests"><i class="fa fa-trash"></i></a>
+                                <a class="pointer" (click)="view(request.id)"><i class="fa fa-eye"></i></a> &nbsp;
+                                <a class="pointer" (click)="editForm(request.id)" appAuthorize="CanManageRequests"><i class="fa fa-edit"></i></a> &nbsp;
+                                <a class="pointer text-danger" (click)="cancel(request.id)" appAuthorize="CanManageRequests"><i class="fa fa-ban"></i></a>
                             </td>
                         </tr>
                     </tbody>
