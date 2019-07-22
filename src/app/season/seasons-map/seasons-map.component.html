@@ -1,0 +1,83 @@
+<div class="page-header">
+    <div class="p-3">
+        <span class="p-2 title">Map of Registered Partners</span>
+    </div>
+</div>
+<hr>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-md-3">
+            <form [formGroup]="form">
+                <div class="card">
+                    <div class="card-body fixed-height">
+                        <div class="form-group">
+                            <label>*Number of records to load</label>
+                            <input type="number" class="form-control" formControlName="size" [class.is-invalid]="size.dirty && size.invalid">
+                            <div class="invalid-feedback" *ngIf="size.dirty && size.invalid">
+                                <div *ngIf="size.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Farm Code</label>
+                            <input type="text" class="form-control" formControlName="farmCode" [class.is-invalid]="farmCode.dirty && farmCode.invalid">
+                            <div class="invalid-feedback" *ngIf="farmCode.dirty && farmCode.invalid">
+                                <div *ngIf="farmCode.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Variety</label>
+                            <select class="form-control" formControlName="varietyId" [class.is-invalid]="varietyId.dirty && varietyId.invalid">
+                                <option *ngFor="let d of varieties$ | async" [ngValue]="d.id">{{d.name}}</option>
+                              </select>
+                            <div class="invalid-feedback" *ngIf="varietyId.dirty && varietyId.invalid">
+                                <div *ngIf="varietyId.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>District</label>
+                            <select class="form-control" formControlName="districtId" [class.is-invalid]="districtId.dirty && districtId.invalid">
+                                <option *ngFor="let d of districts$ | async" [ngValue]="d.id">{{d.name}}</option>
+                              </select>
+                            <div class="invalid-feedback" *ngIf="districtId.dirty && districtId.invalid">
+                                <div *ngIf="districtId.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Region</label>
+                            <select class="form-control" formControlName="regionId" [class.is-invalid]="regionId.dirty && regionId.invalid">
+                                    <option *ngFor="let d of regions$ | async" [ngValue]="d.id">{{d.name}}</option>
+                                  </select>
+                            <div class="invalid-feedback" *ngIf="regionId.dirty && regionId.invalid">
+                                <div *ngIf="regionId.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-block" type="submit" [validate-form]="form" (valid)="getPartners(form.value)">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-9">
+            <div class="card">
+                <agm-map [latitude]="lat" [longitude]="lng">
+                    <agm-marker [latitude]="p.latitude" [longitude]="p.longitude" [label]="p.symbol" *ngFor="let p of partners; let i = index">
+                        <agm-info-window [disableAutoPan]="true">
+                            Type: <strong>{{p.type}}</strong>, Name: <strong>{{p.name}}</strong>, Town: <strong>{{p.town}}</strong>, District: <strong>{{p.district}}</strong>, Region: <strong>{{p.region}}</strong>
+                        </agm-info-window>
+                    </agm-marker>
+                </agm-map>
+            </div>
+        </div>
+    </div>
+</div>

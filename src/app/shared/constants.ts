@@ -15,6 +15,8 @@ export class RouteNames {
     static seasonFormEdit = 'seasons/form/:id';
     static seasonDetails = 'seasons/details';
     static seasonDetailsId = 'seasons/details/:id';
+    static seasonActiveMap = 'seasonsmap';
+    static seasonActiveStats = 'seasonsstats';
 
     static farmer = 'farmer';
     static farmerList = 'farmers';

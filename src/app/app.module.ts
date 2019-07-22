@@ -20,6 +20,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ReportModule } from './report/report.module';
 import { FarmerModule } from './farmer/farmer.module';
 import { ServiceModule } from './service/service.module';
+import { SeasonModule } from './season/season.module';
 
 import { SubscriberModule } from './subscriber/subscriber.module';
 import { ContentModule } from './content/content.module';
@@ -49,6 +50,7 @@ import { CampaignModule } from './campaign/campaign.module';
     AppSettingsModule,
     DashboardModule,
     ReportModule,
+    SeasonModule,
     CoreModule,
     BlockUIModule.forRoot(),
 
