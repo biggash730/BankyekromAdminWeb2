@@ -80,9 +80,9 @@
         <div class="col-sm-12 col-md-9">
             <div class="card">
                 <agm-map [latitude]="lat" [longitude]="lng">
-                    <agm-marker [latitude]="lat" [longitude]="lng" [label]="'i+1'">
+                    <agm-marker [latitude]="p.latitude" [longitude]="p.longitude" [label]="'FM'" *ngFor="let p of farms; let i = index">
                         <agm-info-window [disableAutoPan]="true">
-                            Hi, this is the content of the <strong>info window</strong>
+                            Code: <strong>{{p.code}}</strong>, Farmer: <strong>{{p.farmer}}</strong>, Number of Acres: <strong>{{p.numberOfAcres}}</strong>, Town: <strong>{{p.town}}</strong>, District: <strong>{{p.district}}</strong>, Region: <strong>{{p.region}}</strong>
                         </agm-info-window>
                     </agm-marker>
                 </agm-map>

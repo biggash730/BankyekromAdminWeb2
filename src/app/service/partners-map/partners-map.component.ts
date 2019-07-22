@@ -19,7 +19,7 @@ export class PartnersMapComponent implements OnInit, OnDestroy {
   lat = 5.55602;
   lng = -0.1969;
   form: FormGroup
-  partners$: Observable<any[]>;
+  partners: any[];
   @BlockUI() blockUi: NgBlockUI;
   unsubscribe$ = new Subject<void>();
   filter = <any>{};
@@ -27,15 +27,18 @@ export class PartnersMapComponent implements OnInit, OnDestroy {
   totalRecords = 0;
   districts$: Observable<any>
   regions$: Observable<any>
+  types = [{name: 'Processors'}, {name: 'Service Providers'}];
 
   constructor(private fb: FormBuilder, private router: Router,
     private serviceRequestsService: ServiceRequestsService,
     private settingsService: SettingsService) { }
 
   ngOnInit() {
+    this.partners = <any>[]
     this.setupForm()
     this.loadDistricts()
     this.loadRegions()
+    this.getPartners(this.filter);
   }
 
   ngOnDestroy() {
@@ -50,6 +53,7 @@ export class PartnersMapComponent implements OnInit, OnDestroy {
   get name() { return this.form.get('name') }
   get contactPerson() { return this.form.get('contactPerson') }
   get phoneNumber() { return this.form.get('phoneNumber') }
+  get type() { return this.form.get('type') }
 
   private setupForm() {
     this.form = this.fb.group({
@@ -59,19 +63,26 @@ export class PartnersMapComponent implements OnInit, OnDestroy {
       name: new FormControl(''),
       contactPerson: new FormControl(''),
       phoneNumber: new FormControl(''),
+      type: new FormControl(null),
       size: new FormControl(50, Validators.required)
     })
   }
 
-  getFarms(filter: any) {
+  getPartners(filter: any) {
+    const self = this;
     this.lastFilter = Object.assign({}, filter);
     this.blockUi.start('Loading...');
-    this.partners$ = this.serviceRequestsService.queryMapPartners(filter).pipe(
-      finalize(() => {
-        this.totalRecords = this.serviceRequestsService.totalPartners
-        this.blockUi.stop()
-      })
-    );
+    this.serviceRequestsService.queryMapPartners(filter)
+    .toPromise()
+    .then(x => {
+      x.forEach(function (v) {
+        v.latitude = Number(v.latitude);
+        v.longitude = Number(v.longitude);
+        console.log(v)
+        self.partners.push(v);
+      });
+      this.blockUi.stop();
+    });
   }
 
   private loadDistricts() {

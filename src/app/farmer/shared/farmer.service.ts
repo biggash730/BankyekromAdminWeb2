@@ -87,7 +87,7 @@ export class FarmerService {
   }
 
   queryMapFarms(params: FarmsQuery) {
-    return this.http.post<ResponseObject<Farm[]>>(`${environment.baseUrl}/farms/adminmapquery`, params)
+    return this.http.post<ResponseObject<any[]>>(`${environment.baseUrl}/farms/adminmapquery`, params)
       .pipe(
         map(res => {
           if (res.success) {

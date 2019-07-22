@@ -20,10 +20,10 @@ export class FarmsMapComponent implements OnInit, OnDestroy {
   lat = 5.55602;
   lng = -0.1969;
   form: FormGroup
-  farms$: Observable<Farm[]>;
+  farms: any[];
   @BlockUI() blockUi: NgBlockUI;
   unsubscribe$ = new Subject<void>();
-  filter = <FarmsQuery>{};
+  filter = <FarmsQuery>{size: 50};
   lastFilter: FarmsQuery;
   totalRecords = 0;
   areas$: Observable<any>
@@ -35,10 +35,12 @@ export class FarmsMapComponent implements OnInit, OnDestroy {
     private settingsService: SettingsService) { }
 
   ngOnInit() {
+    this.farms = <any>[]
     this.setupForm()
     this.loadDistricts()
     this.loadRegions()
     this.loadAreas()
+    this.getFarms(this.filter);
   }
 
   ngOnDestroy() {
@@ -69,15 +71,22 @@ export class FarmsMapComponent implements OnInit, OnDestroy {
   }
 
   getFarms(filter: any) {
+    const self = this;
     this.lastFilter = Object.assign({}, filter);
     this.blockUi.start('Loading...');
-    this.farms$ = this.farmerService.queryMapFarms(filter).pipe(
-      finalize(() => {
-        this.totalRecords = this.farmerService.totalFarms
-        this.blockUi.stop()
-      })
-    );
+    this.farmerService.queryMapFarms(filter)
+    .toPromise()
+    .then(x => {
+      // this.totalRecords = this.farmerService.totalFarms
+      x.forEach(function (v) {
+        v.latitude = Number(v.latitude);
+        v.longitude = Number(v.longitude);
+        self.farms.push(v);
+      });
+      this.blockUi.stop();
+    });
   }
+
 
   private loadDistricts() {
     this.districts$ = this.settingsService.fetch2('districts')

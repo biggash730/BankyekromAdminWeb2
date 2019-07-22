@@ -56,6 +56,17 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label>Partner Type</label>
+                            <select class="form-control" formControlName="type" [class.is-invalid]="type.dirty && type.invalid">
+                                <option *ngFor="let d of types" [ngValue]="d.name">{{d.name}}</option>
+                              </select>
+                            <div class="invalid-feedback" *ngIf="type.dirty && type.invalid">
+                                <div *ngIf="type.errors.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label>District</label>
                             <select class="form-control" formControlName="districtId" [class.is-invalid]="districtId.dirty && districtId.invalid">
                                 <option *ngFor="let d of districts$ | async" [ngValue]="d.id">{{d.name}}</option>
@@ -79,7 +90,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary btn-block" type="submit" [validate-form]="form" (valid)="getFarms(form.value)">Search</button>
+                        <button class="btn btn-primary btn-block" type="submit" [validate-form]="form" (valid)="getPartners(form.value)">Search</button>
                     </div>
                 </div>
             </form>
@@ -87,9 +98,9 @@
         <div class="col-sm-12 col-md-9">
             <div class="card">
                 <agm-map [latitude]="lat" [longitude]="lng">
-                    <agm-marker [latitude]="lat" [longitude]="lng" [label]="'i+1'">
+                    <agm-marker [latitude]="p.latitude" [longitude]="p.longitude" [label]="p.symbol" *ngFor="let p of partners; let i = index">
                         <agm-info-window [disableAutoPan]="true">
-                            Hi, this is the content of the <strong>info window</strong>
+                            Type: <strong>{{p.type}}</strong>, Name: <strong>{{p.name}}</strong>, Town: <strong>{{p.town}}</strong>, District: <strong>{{p.district}}</strong>, Region: <strong>{{p.region}}</strong>
                         </agm-info-window>
                     </agm-marker>
                 </agm-map>
