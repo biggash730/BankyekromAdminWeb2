@@ -71,9 +71,10 @@
         <div class="col-sm-12 col-md-9">
             <div class="card">
                 <agm-map [latitude]="lat" [longitude]="lng">
-                    <agm-marker [latitude]="p.latitude" [longitude]="p.longitude" [label]="p.symbol" *ngFor="let p of partners; let i = index">
+                    <agm-marker [latitude]="p.latitude" [longitude]="p.longitude" [label]="S" *ngFor="let p of seasons; let i = index">
                         <agm-info-window [disableAutoPan]="true">
-                            Type: <strong>{{p.type}}</strong>, Name: <strong>{{p.name}}</strong>, Town: <strong>{{p.town}}</strong>, District: <strong>{{p.district}}</strong>, Region: <strong>{{p.region}}</strong>
+                            Variety: <strong>{{p.variety}}</strong>, Date Planted: <strong>{{p.datePlanted | date:'mediumDate'}}</strong>, Projected Harvest Date: <strong>{{p.projectedHarvestDate | date:'mediumDate'}}</strong>, Expected Quantity: <strong>{{p.expectedQuantity}} Tonnes</strong>,
+                            FarmCode: <strong>{{p.farmCode}}</strong>
                         </agm-info-window>
                     </agm-marker>
                 </agm-map>

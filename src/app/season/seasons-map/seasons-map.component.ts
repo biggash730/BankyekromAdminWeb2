@@ -23,7 +23,7 @@ export class SeasonsMapComponent implements OnInit, OnDestroy {
   seasons: any[];
   @BlockUI() blockUi: NgBlockUI;
   unsubscribe$ = new Subject<void>();
-  filter = <any>{};
+  filter = <any>{size: 50};
   lastFilter: any;
   totalRecords = 0;
   districts$: Observable<any>
