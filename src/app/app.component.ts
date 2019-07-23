@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.checkLogin();
     this.setMenuItems();
-    // this.setName()
+    this.setName()
     this.chartPlugin()
     $('#preloader-body').hide();
   }

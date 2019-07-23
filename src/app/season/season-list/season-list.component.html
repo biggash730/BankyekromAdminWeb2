@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <filter class="float-left" placeholder="Search by farm code" label="code" [model]="farmCode" (search)="getSeasons($event)" [filter]="filter">
+        <filter class="float-left" placeholder="Search by farm code" label="farmCode" [model]="filter.farmCode" (search)="getSeasons($event)" [filter]="filter">
             <div class="form-group">
                 <input type="text" class="form-control" name="town" placeholder="Town" [(ngModel)]="filter.town">
             </div>

@@ -30,4 +30,6 @@ export interface SeasonsQuery extends ModelQuery {
     varietyId: number
     town: string
     farmCode: number
+    regionId: number
+    districtId: number
 }

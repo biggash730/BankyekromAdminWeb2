@@ -46,6 +46,8 @@ export interface FarmersQuery extends ModelQuery {
     areaId: number
     isActive: boolean
     ghanaPostGps: string
+    regionId: number
+    districtId: number
 }
 
 export interface FarmsQuery extends ModelQuery {
@@ -60,6 +62,8 @@ export interface FarmsQuery extends ModelQuery {
     numberOfAcres: number
     farmerId: number
     isDeleted: boolean
-    ghanaPostGps: string,
+    ghanaPostGps: string
     size: number
+    regionId: number
+    districtId: number
 }

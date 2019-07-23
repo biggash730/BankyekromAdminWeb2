@@ -19,6 +19,11 @@ export interface ServiceRequestsQuery extends ModelQuery {
     serviceId: number
     status: string
     assignedToId: number
+    code: string
+    regionId: number
+    districtId: number
+    town: string
+    phoneNumber: string
 }
 
 export interface ServiceProvider {
@@ -50,6 +55,7 @@ export interface ServiceProvidersQuery extends ModelQuery {
     town: string
     longitude: number
     latitude: number
+    regionId: number
     districtId: number
     isActive: number
     ghanaPostGps: string
@@ -83,6 +89,7 @@ export interface ProcessorsQuery extends ModelQuery {
     town: string
     longitude: number
     latitude: number
+    regionId: number
     districtId: number
     isActive: number
     ghanaPostGps: string
