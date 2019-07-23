@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.year = new Date().getFullYear();
-    this.years = [this.year, this.year - 1, this.year - 2, this.year - 3, this.year -  4, this.year - 5]
+    this.years = [this.year + 2, this.year + 1, this.year, this.year - 1, this.year - 2, this.year - 3, this.year -  4, this.year - 5]
     this.getGeneralStats();
     this.getYearlyStats();
   }

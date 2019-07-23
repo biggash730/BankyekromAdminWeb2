@@ -160,38 +160,29 @@
             <div class="col-sm-12 col-md-8">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Active Planting Seasons</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Active Planting Seasons ({{ys.seasonsStats.totalSeasons}})</h6>
                     </div>
                     <div class="card-body">
-                        <h4 class="small font-weight-bold">(81 - 100)% Matured <span class="float-right">{{((ys.seasonsStats.s81to100 * 100)/ys.seasonsStats.totalSeasons)}}%</span></h4>
+                        <h4 class="small font-weight-bold">(81 - 100)% Matured <span class="float-right">{{((ys.seasonsStats.s81to100 * 100)/ys.seasonsStats.totalSeasons) | number:'1.0-2'}}%</span></h4>
                         <div class="progress mb-4">
                             <div class="progress-bar bg-success" role="progressbar" [style.width.%]="(ys.seasonsStats.s81to100 * 100)/ys.seasonsStats.totalSeasons" aria-valuemin="0" aria-valuemax="100">{{ys.seasonsStats.s81to100}}</div>
                         </div>
-                        <h4 class="small font-weight-bold">(61 - 80)% Matured <span class="float-right">{{((ys.seasonsStats.s61to80 * 100)/ys.seasonsStats.totalSeasons)}}%</span></h4>
+                        <h4 class="small font-weight-bold">(61 - 80)% Matured <span class="float-right">{{((ys.seasonsStats.s61to80 * 100)/ys.seasonsStats.totalSeasons) | number:'1.0-2'}}%</span></h4>
                         <div class="progress mb-4">
                             <div class="progress-bar bg-info" role="progressbar" [style.width.%]="(ys.seasonsStats.s61to80 * 100)/ys.seasonsStats.totalSeasons" aria-valuemin="0" aria-valuemax="100">{{ys.seasonsStats.s61to80}}</div>
                         </div>
-                        <h4 class="small font-weight-bold">(41 - 60)% Matured <span class="float-right">{{((ys.seasonsStats.s41to60 * 100)/ys.seasonsStats.totalSeasons)}}%</span></h4>
+                        <h4 class="small font-weight-bold">(41 - 60)% Matured <span class="float-right">{{((ys.seasonsStats.s41to60 * 100)/ys.seasonsStats.totalSeasons) | number:'1.0-2'}}%</span></h4>
                         <div class="progress mb-4">
                             <div class="progress-bar bg-warning" role="progressbar" [style.width.%]="(ys.seasonsStats.s41to60 * 100)/ys.seasonsStats.totalSeasons" aria-valuemin="0" aria-valuemax="100">{{ys.seasonsStats.s41to60}}</div>
                         </div>
-                        <h4 class="small font-weight-bold">(21 - 40)% Matured <span class="float-right">{{((ys.seasonsStats.s21to40 * 100)/ys.seasonsStats.totalSeasons)}}%</span></h4>
+                        <h4 class="small font-weight-bold">(21 - 40)% Matured <span class="float-right">{{((ys.seasonsStats.s21to40 * 100)/ys.seasonsStats.totalSeasons) | number:'1.0-2'}}%</span></h4>
                         <div class="progress mb-4">
                             <div class="progress-bar" role="progressbar" [style.width.%]="(ys.seasonsStats.s21to40 * 100)/ys.seasonsStats.totalSeasons" aria-valuemin="0" aria-valuemax="100">{{ys.seasonsStats.s21to40}}</div>
                         </div>
-                        <h4 class="small font-weight-bold">(0 - 20)% Matured <span class="float-right">{{((ys.seasonsStats.s0to20 * 100)/ys.seasonsStats.totalSeasons)}}%</span></h4>
+                        <h4 class="small font-weight-bold">(0 - 20)% Matured <span class="float-right">{{((ys.seasonsStats.s0to20 * 100)/ys.seasonsStats.totalSeasons) | number:'1.0-2'}}%</span></h4>
                         <div class="progress mb-4">
                             <div class="progress-bar bg-danger" role="progressbar" [style.width.%]="(ys.seasonsStats.s0to20 * 100)/ys.seasonsStats.totalSeasons" aria-valuemin="0" aria-valuemax="100">{{ys.seasonsStats.s0to20}}</div>
                         </div>
-                        <!-- <ng-container *ngFor="let record of summary.percentageSummary">
-                            <div class="text-muted font-11">
-                                <span>{{record.name}}</span>
-                                <span class="float-right">{{record.count}}</span>
-                            </div>
-                            <div class="progress progress-height mb-3">
-                                <div class="progress-bar" role="progressbar" [ngClass]="setProgressColor(record.percentage)" [style.width.%]="record.percentage" aria-valuemin="0" aria-valuemax="100">{{record.percentage}}%</div>
-                            </div>
-                        </ng-container> -->
                     </div>
                 </div>
                 <div class="card shadow mb-4">
